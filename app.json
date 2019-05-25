@@ -1,0 +1,29 @@
+{
+  "name": "blockade-api",
+  "addons": [],
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "env": {
+    "NODE_ENV": {
+      "description": "Node environment. node_modules packages can alter their behaviour when in production. Heroku will prune devPackages when in production.",
+      "value": "production"
+    },
+    "NODE_CONFIG_ENV": {
+      "description": "Realm for loading config entries",
+      "required": true
+    },
+    "PAPERTRAIL_HOST": {
+      "required": true
+    },
+    "PAPERTRAIL_PORT": {
+      "required": true
+    },
+    "SENTRY_DSN": {
+      "required": true
+    }
+  },
+  "stack": "container"
+}
