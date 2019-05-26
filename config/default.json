@@ -1,0 +1,10 @@
+{
+  "app": {
+    "tempDir": "tmp",
+    "locales": [
+      "en",
+      "fr"
+    ],
+    "locale": "en"
+  }
+}

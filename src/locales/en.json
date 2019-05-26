@@ -1,0 +1,7 @@
+{
+  "hello": "welcome",
+  "DEFAULT_ERRORS": {
+    "SERVER_ERROR": "Request could not be completed due to server encountered error. Please try again later.",
+    "NOT_FOUND": "Requested resource not found."
+  }
+}

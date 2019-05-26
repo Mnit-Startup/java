@@ -1,0 +1,47 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "no-underscore-dangle": 0,
+    "object-curly-spacing": [
+      "error",
+      "never"
+    ],
+    "max-len": "off",
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ]
+  },
+  "env": {
+    "jasmine": true
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/test/**/*.*",
+        "src/**/*.spec.js"
+      ],
+      "globals": {
+        "before": true,
+        "beforeEach": true,
+        "after": true,
+        "afterEach": true,
+        "describe": true,
+        "it": true
+      },
+      "rules": {
+        "func-names": "off",
+        "import/no-extraneous-dependencies": [
+          "error",
+          {
+            "devDependencies": true,
+            "optionalDependencies": false,
+            "peerDependencies": false
+          }
+        ]
+      }
+    }
+  ]
+}

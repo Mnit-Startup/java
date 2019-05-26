@@ -1,0 +1,17 @@
+{
+  "app": {
+    "root": "http://localhost:8080"
+  },
+  "logger": {
+    "console": true
+  },
+  "papertrail": {
+    "host": "",
+    "port": "",
+    "program": "",
+    "handleExceptions": false
+  },
+  "www": {
+    "port": 5000
+  }
+}

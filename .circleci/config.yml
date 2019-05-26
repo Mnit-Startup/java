@@ -1,0 +1,56 @@
+version: 2
+jobs:
+  install:
+    docker:
+      - image: circleci/node:10.14.1
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run:
+          name: Install dependencies
+          command: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - persist_to_workspace:
+          root: /home/circleci/project
+          paths:
+            - node_modules/*
+  lint:
+    docker:
+      - image: circleci/node:10.14.1
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /home/circleci/project
+      - run:
+          name: Code linting
+          command: npm run lint
+      - run:
+          name: Markdown Linting
+          command: npm run lint-md
+  test:
+    docker:
+      - image: circleci/node:10.14.1
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /home/circleci/project
+      - run:
+          name: Build project
+          command: npm run build -- --includeSpec
+workflows:
+  version: 2
+  install_test_lint:
+    jobs:
+      - install
+      - lint:
+          requires:
+            - install
+      - test:
+          requires:
+            - install

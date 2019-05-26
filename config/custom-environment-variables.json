@@ -1,0 +1,17 @@
+{
+  "logger": {
+    "console": "LOGGER_CONSOLE"
+  },
+  "www": {
+    "port": "PORT"
+  },
+  "sentry": {
+    "dsn": "SENTRY_DSN",
+    "env": "SENTRY_ENV"
+  },
+  "papertrail": {
+    "host": "PAPERTRAIL_HOST",
+    "port": "PAPERTRAIL_PORT",
+    "program": "PAPERTRAIL_PROGRAM"
+  }
+}

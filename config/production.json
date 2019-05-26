@@ -1,0 +1,15 @@
+{
+  "logger": {
+    "console": false
+  },
+  "papertrail": {
+    "host": null,
+    "port": null,
+    "program": "api-production",
+    "handleExceptions": true
+  },
+  "sentry": {
+    "dsn": null,
+    "env": "production"
+  }
+}
