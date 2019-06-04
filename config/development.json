@@ -10,5 +10,9 @@
     "port": "",
     "program": "",
     "handleExceptions": false
+  },
+  "mongoDb": {
+    "debug": true,
+    "uri": "mongodb://localhost:27017/blockade-development"
   }
 }

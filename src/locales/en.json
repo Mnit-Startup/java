@@ -3,5 +3,10 @@
   "DEFAULT_ERRORS": {
     "SERVER_ERROR": "Request could not be completed due to server encountered error. Please try again later.",
     "NOT_FOUND": "Requested resource not found."
+  },
+  "VAL_ERRORS": {
+    "USR_ACC_MISSING_EMAIL": "Please specify an email address to continue",
+    "USR_ACC_MISSING_PWD": "Please specify a password to continue",
+    "USR_ACC_NEW_EMAIL_EXISTS": "An account is already registered with this email address. Please use a different email address to complete the registration"
   }
 }

@@ -13,5 +13,8 @@
     "host": "PAPERTRAIL_HOST",
     "port": "PAPERTRAIL_PORT",
     "program": "PAPERTRAIL_PROGRAM"
+  },
+  "mongoDb": {
+    "uri": "MONGODB_URI"
   }
 }

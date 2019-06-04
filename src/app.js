@@ -8,13 +8,26 @@ const _ = require('lodash');
 
 // our in-house dependency injection framework
 const DI = require('./di');
+const Modules = require('./modules');
 const {Sentry, Cors, i18n} = require('./core');
 const routes = require('./routes');
 const {Logger, Error} = require('./helpers');
 
+// from modules
+const {DbUtils} = Modules.Db;
+
 // define entries for DI
 // register module with respective namespace
-const moduleEntries = [];
+const moduleEntries = [
+  {
+    module: Modules.Db,
+    namespace: 'db',
+  },
+  {
+    module: Modules.Accounts,
+    namespace: 'accounts',
+  },
+];
 
 // init app
 const app = express();
@@ -95,6 +108,7 @@ app.use((req, res, next) => {
 
 // set up routes
 app.use('/', routes.ping);
+app.use('/accounts', routes.accounts);
 
 // not found handler
 app.use((req, res, next) => {
@@ -108,6 +122,10 @@ app.use((err, req, res, next) => {
     // error returned by body parser
     // conclude
     next(Error.InvalidRequest(res.__('REQ_ERRORS.MALFORMED_INPUT')));
+  } else if (DbUtils.checkConnectionErr(err)) {
+    // mongoose connection error
+    // conclude
+    next(Error.TemporarilyUnavailable());
   } else {
     // type could not be determined
     next(err);

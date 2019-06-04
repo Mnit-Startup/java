@@ -11,5 +11,9 @@
   "sentry": {
     "dsn": null,
     "env": "production"
+  },
+  "mongoDb": {
+    "debug": false,
+    "uri": null
   }
 }

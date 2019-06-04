@@ -13,5 +13,9 @@
   },
   "www": {
     "port": 5000
+  },
+  "mongoDb": {
+    "debug": false,
+    "uri": null
   }
 }
