@@ -7,6 +7,13 @@ const schema = new mongoose.Schema({
     salt: String,
   },
   role: String,
+  blockchain: {
+    wallet: {
+      add: String,
+      pub: String,
+      enc: String,
+    },
+  },
 }, {
   timestamps: {
     createdAt: 'created_at',

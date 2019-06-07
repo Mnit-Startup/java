@@ -27,6 +27,10 @@ const moduleEntries = [
     module: Modules.Accounts,
     namespace: 'accounts',
   },
+  {
+    module: Modules.BlockchainWallet,
+    namespace: 'blockchainWallet',
+  },
 ];
 
 // init app

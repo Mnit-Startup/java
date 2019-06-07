@@ -30,6 +30,11 @@ exports.register = [
         }
         // init hash and salts for new password
         const {hash, salt} = res.locals.accounts.initPasswordHash(params.password);
+        // init blockchain identity for the issuer
+        const wallet = res.locals.blockchainWallet.createNew();
+        // encrypt the private key via encryptionkey
+        const encryptedKey = res.locals.accounts.encryptFromPassword(wallet.private_key, params.password);
+        // create account
         const registerData = {
           email: params.email,
           password: {
@@ -37,6 +42,13 @@ exports.register = [
             salt,
           },
           role,
+          blockchain: {
+            wallet: {
+              add: wallet.address,
+              pub: wallet.public_key,
+              enc: encryptedKey,
+            },
+          },
         };
         const account = await res.locals.db.accounts.create(registerData);
         // create new profile based on the role
