@@ -1,4 +1,9 @@
 {
+  "accounts": {
+    "jwt": {
+      "key": "ACCOUNTS_JWT_KEY"
+    }
+  },
   "logger": {
     "console": "LOGGER_CONSOLE"
   },

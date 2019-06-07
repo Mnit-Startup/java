@@ -1,4 +1,9 @@
 {
+  "accounts": {
+    "jwt": {
+      "exp": 608400
+    }
+  },
   "app": {
     "tempDir": "tmp",
     "locales": [

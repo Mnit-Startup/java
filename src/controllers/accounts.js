@@ -85,3 +85,49 @@ exports.register = [
     });
   },
 ];
+
+exports.login = [
+  // validation schema
+  ValidationSchemas.Login,
+  // validation interceptor
+  InputValidator(),
+  // controller
+  (req, res, next) => {
+    // get params from body
+    const {email, password} = req.body;
+    // begin promise
+    new Promise(async (resolve, reject) => {
+      try {
+        // load account
+        const account = await res.locals.db.accounts.findOne({email});
+        if (!account) {
+          return reject(Errors.InvalidRequest(res.__('VAL_ERRORS.USR_ACC_LOGIN_INVALID_CRE')));
+        }
+        // generate password hash
+        const passwordHash = await res.locals.accounts.generatePasswordHash(password, account.password.salt);
+        // verify it
+        if (account.password.hash !== passwordHash) {
+          return reject(Errors.InvalidRequest(res.__('VAL_ERRORS.USR_ACC_LOGIN_INVALID_CRE')));
+        }
+        const access = await res.locals.accounts.generateJWT({
+          id: account.id,
+          role: account.role,
+        });
+        // conclude
+        return resolve({
+          account_id: account.id,
+          access_token: access.token,
+          role: account.role,
+        });
+      } catch (e) {
+        return reject(e);
+      }
+    }).asCallback((err, response) => {
+      if (err) {
+        next(err);
+      } else {
+        res.json(response);
+      }
+    });
+  },
+];

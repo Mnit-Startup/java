@@ -111,7 +111,6 @@ app.use((req, res, next) => {
 });
 
 // set up routes
-app.use('/', routes.ping);
 app.use('/accounts', routes.accounts);
 
 // not found handler
