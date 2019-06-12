@@ -91,3 +91,5 @@ Each entry here is an object notation and is provided with short description.
 - `sentry.dsn` `String` - Sentry DSN for error reporting. If not provided, sentry will not be configured.
 - `sentry.env` `String` - Environment for Sentry. [More Info](https://docs.sentry.io/learn/environments/?platform=node)
 - `www.port` `Number/String` - Port for listening incoming HTTP connection. (Default: `8080`)
+- `infura.endpoint` `String` - Endpoint to use for using [Infura API](https://infura.io). `{projectId}` wildcard can be used to replace with configured project ID.
+- `infura.projectId` `String` `REQUIRED` - Project ID on [Infura API](https://infura.io)

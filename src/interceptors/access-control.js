@@ -14,13 +14,13 @@ module.exports = (opts) => {
       // obtain token - our in house bearer token parser
       const header = req.get('Authorization');
       if (!header) {
-        return reject(Error.Unauthorized(res.__('REQ_ERRORS.MISSING_AUTH')));
+        return reject(Error.Unauthorized(res.__('DEFAULT_ERRORS.MISSING_AUTH')));
       }
       // split it
       const splits = header.split(' ');
       // process splits
       if (splits.length !== 2 || splits[0] !== 'Bearer' || !splits[1]) {
-        return reject(Error.Unauthorized(res.__('REQ_ERRORS.INVALID_AUTH')));
+        return reject(Error.Unauthorized(res.__('DEFAULT_ERRORS.INVALID_AUTH')));
       }
       // all good, obtain token from splits
       const token = splits[1];
@@ -34,7 +34,7 @@ module.exports = (opts) => {
       }
       // verify
       if (decodeErr || !decoded) {
-        return reject(Error.Unauthorized(res.__('REQ_ERRORS.INVALID_AUTH')));
+        return reject(Error.Unauthorized(res.__('DEFAULT_ERRORS.INVALID_AUTH')));
       }
       // process it - role negotiation
       if (options.role && options.role !== decoded.role) {
@@ -44,7 +44,7 @@ module.exports = (opts) => {
       const acc = await res.locals.db.accounts.findById(decoded.id);
       // verify acc
       if (!acc) {
-        return reject(Error.Unauthorized(res.__('REQ_ERRORS.INVALID_AUTH')));
+        return reject(Error.Unauthorized(res.__('DEFAULT_ERRORS.INVALID_AUTH')));
       }
       // all good
       return resolve(acc);

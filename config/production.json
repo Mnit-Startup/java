@@ -15,5 +15,8 @@
   "mongoDb": {
     "debug": false,
     "uri": null
+  },
+  "infura": {
+    "endpoint": "https://mainnet.infura.io/v3/{projectId}"
   }
 }

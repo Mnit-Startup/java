@@ -15,5 +15,8 @@
   "mongoDb": {
     "debug": false,
     "uri": null
+  },
+  "infura": {
+    "endpoint": "https://ropsten.infura.io/v3/{projectId}"
   }
 }

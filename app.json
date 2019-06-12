@@ -23,6 +23,9 @@
     },
     "SENTRY_DSN": {
       "required": true
+    },
+    "INFURA_PROJECT_ID": {
+      "required": true
     }
   },
   "stack": "container"

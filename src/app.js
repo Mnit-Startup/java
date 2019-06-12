@@ -112,6 +112,7 @@ app.use((req, res, next) => {
 
 // set up routes
 app.use('/accounts', routes.accounts);
+app.use('/account', routes.account);
 
 // not found handler
 app.use((req, res, next) => {
@@ -124,7 +125,7 @@ app.use((err, req, res, next) => {
   if (err.type === 'entity.parse.failed') {
     // error returned by body parser
     // conclude
-    next(Error.InvalidRequest(res.__('REQ_ERRORS.MALFORMED_INPUT')));
+    next(Error.InvalidRequest(res.__('DEFAULT_ERRORS.MALFORMED_INPUT')));
   } else if (DbUtils.checkConnectionErr(err)) {
     // mongoose connection error
     // conclude

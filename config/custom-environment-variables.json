@@ -21,5 +21,8 @@
   },
   "mongoDb": {
     "uri": "MONGODB_URI"
+  },
+  "infura": {
+    "projectId": "INFURA_PROJECT_ID"
   }
 }
