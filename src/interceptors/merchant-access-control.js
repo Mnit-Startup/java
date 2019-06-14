@@ -1,12 +1,12 @@
 const Promise = require('bluebird');
 const {Error} = require('../helpers');
+const {Roles} = require('../models');
 
 module.exports = (req, res, next) => {
   new Promise(async (resolve, reject) => {
     // load account from req
     const acc = req.user_acc;
-    const {id} = req.params;
-    if (acc.id === id) {
+    if (acc.role === Roles.MERCHANT) {
       resolve(acc);
     } else {
       // Make sure that token is authorized to access resource associated with account id

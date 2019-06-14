@@ -113,6 +113,7 @@ app.use((req, res, next) => {
 // set up routes
 app.use('/accounts', routes.accounts);
 app.use('/account', routes.account);
+app.use('/transaction', routes.transaction);
 
 // not found handler
 app.use((req, res, next) => {
