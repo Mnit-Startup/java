@@ -26,6 +26,9 @@
     },
     "INFURA_PROJECT_ID": {
       "required": true
+    },
+    "KADIMA_CONTRACT_ADDRESS": {
+      "required": false
     }
   },
   "stack": "container"

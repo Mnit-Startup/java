@@ -139,9 +139,8 @@ exports.payTransaction = [
           return reject(Error.InvalidRequest(res.__('PAYMENT.TRANSACTION_PAID')));
         }
         // Check that the user has enough balance to pay
-        const balanceinWei = await res.locals.blockchainWallet.getBalance(acc.blockchain.wallet.add);
-        const balance = (balanceinWei / 1000000000000000000);
-        if (balance < transaction.amount) {
+        const balance = await res.locals.blockchainWallet.getKadimaBalance(acc.blockchain.wallet.add);
+        if (balance.balance < transaction.amount) {
           return reject(Error.InvalidRequest(res.__('PAYMENT.INSUFFICIENT_BALANCE')));
         }
         // TODO jjalan: Actually transfer the money from user wallet to merchant wallet

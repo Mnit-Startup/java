@@ -40,12 +40,12 @@ exports.getBalance = [
         return;
       }
       try {
-        const balance = await res.locals.blockchainWallet.getBalance(acc.blockchain.wallet.add);
+        const kadimaBalance = await res.locals.blockchainWallet.getKadimaBalance(acc.blockchain.wallet.add);
         resolve([{
-          symbol: 'KDM',
+          symbol: kadimaBalance.symbol,
           updated_at: new Date(),
           description: 'Kadmia Coin',
-          balance: (balance / 1000000000000000000),
+          balance: kadimaBalance.balance,
         }]);
       } catch (e) {
         reject(e);

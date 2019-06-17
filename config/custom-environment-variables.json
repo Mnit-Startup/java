@@ -24,5 +24,8 @@
   },
   "infura": {
     "projectId": "INFURA_PROJECT_ID"
+  },
+  "kadima": {
+    "contractAddress": "KADIMA_CONTRACT_ADDRESS"
   }
 }
