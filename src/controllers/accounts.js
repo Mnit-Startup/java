@@ -33,7 +33,7 @@ exports.register = [
         // init blockchain identity for the issuer
         const wallet = res.locals.blockchainWallet.createNew();
         // encrypt the private key via encryptionkey
-        const encryptedKey = res.locals.accounts.encryptFromPassword(wallet.private_key, params.password);
+        const encryptedKey = res.locals.accounts.encryptWalletPrivateKey(wallet.private_key);
         // create account
         const registerData = {
           email: params.email,

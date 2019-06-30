@@ -21,6 +21,7 @@
   },
   "PAYMENT": {
     "TRANSACTION_PAID": "The transaction has been paid. Please make sure you are paying for the correct transaction",
-    "INSUFFICIENT_BALANCE": "You have insufficient balance to pay the transaction. Please make sure you have enough balance in your wallet to continue"
+    "INSUFFICIENT_BALANCE": "You have insufficient balance to pay the transaction. Please make sure you have enough balance in your wallet to continue",
+    "INSUFFICIENT_BALANCE_TO_EXECUTE_TRANSACTION": "You have insufficient balance to execute the transaction. Please transfer at least %s ETH to your wallet %s to continue."
   }
 }

@@ -40,3 +40,26 @@ exports.ecrypt = (raw, key, options) => {
     value,
   };
 };
+
+/**
+ * @function - decrypts provided encrypted value via provided key
+ * @param {string} encrypted
+ * @param {string} key
+ * @param {{[alg]: string, [encIn]: string, [encOut]: string}} [options]
+ * @returns {string}
+ */
+exports.decrypt = (encrypted, key, options) => {
+  // pre-process options
+  const opts = options || {};
+  opts.alg = opts.alg || DEFAULT_ENC_ALG;
+  opts.encIn = opts.encIn || DEFAULT_ENC_OUT_ENC;
+  opts.encOut = opts.encOut || DEFAULT_ENC_IN_ENC;
+  // create decipher
+  // TODO: Use createDecipheriv instead
+  const decipher = crypto.createDecipher(opts.alg, key);
+  // update decipher
+  let ret = decipher.update(encrypted, opts.encIn, opts.encOut);
+  ret += decipher.final(opts.encOut);
+  // conclude
+  return ret;
+};

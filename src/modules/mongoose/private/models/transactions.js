@@ -12,6 +12,7 @@ const schema = new mongoose.Schema({
     ref: 'Account',
   },
   paid_on: Date,
+  payment_info: mongoose.Schema.Types.Mixed,
 }, {
   timestamps: {
     createdAt: 'created_at',

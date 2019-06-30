@@ -29,6 +29,12 @@
     },
     "KADIMA_CONTRACT_ADDRESS": {
       "required": false
+    },
+    "ACCOUNTS_WALLET_ENCRYPTION_KEY": {
+      "required": true
+    },
+    "INFURA_CHAIN_ID": {
+      "required": false
     }
   },
   "stack": "container"

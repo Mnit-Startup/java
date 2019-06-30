@@ -131,7 +131,7 @@ exports.payTransaction = [
       try {
         const transaction = await res.locals.db.transactions.findOne({
           _id: req.params.transactionId,
-        });
+        }).populate('store');
         if (!transaction) {
           return reject(Error.NotFound());
         }
@@ -143,7 +143,19 @@ exports.payTransaction = [
         if (balance.balance < transaction.amount) {
           return reject(Error.InvalidRequest(res.__('PAYMENT.INSUFFICIENT_BALANCE')));
         }
-        // TODO jjalan: Actually transfer the money from user wallet to merchant wallet
+
+        const merchantAccount = await res.locals.db.accounts.findOne({
+          _id: transaction.store.account_id,
+        });
+        
+        const paymentTransaction = await res.locals.blockchainWallet.transferKadimaCoin({
+          from: acc.blockchain.wallet.add,
+          to: merchantAccount.blockchain.wallet.add,
+          amount: transaction.amount,
+          from_wallet_private_key: res.locals.accounts.decryptWalletPrivateKey(acc.blockchain.wallet.enc),
+          translate: res.__,
+        });
+
         const now = new Date();
         await res.locals.db.transactions.update({
           _id: req.params.transactionId,
@@ -153,6 +165,7 @@ exports.payTransaction = [
             payment_status: PaymentStatus.PAID,
             paid_on: now,
             updated_at: now,
+            payment_info: paymentTransaction,
           },
         });
         // Return updated transaction

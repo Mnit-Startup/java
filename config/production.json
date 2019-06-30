@@ -17,6 +17,7 @@
     "uri": null
   },
   "infura": {
-    "endpoint": "https://mainnet.infura.io/v3/{projectId}"
+    "endpoint": "https://mainnet.infura.io/v3/{projectId}",
+    "chainId": 1
   }
 }

@@ -2,6 +2,9 @@
   "accounts": {
     "jwt": {
       "key": "ACCOUNTS_JWT_KEY"
+    },
+    "wallet": {
+      "encryption_key": "ACCOUNTS_WALLET_ENCRYPTION_KEY"
     }
   },
   "logger": {
@@ -23,7 +26,8 @@
     "uri": "MONGODB_URI"
   },
   "infura": {
-    "projectId": "INFURA_PROJECT_ID"
+    "projectId": "INFURA_PROJECT_ID",
+    "chainId": "INFURA_CHAIN_ID"
   },
   "kadima": {
     "contractAddress": "KADIMA_CONTRACT_ADDRESS"
