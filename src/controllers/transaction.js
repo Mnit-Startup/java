@@ -147,7 +147,7 @@ exports.payTransaction = [
         const merchantAccount = await res.locals.db.accounts.findOne({
           _id: transaction.store.account_id,
         });
-        
+
         const paymentTransaction = await res.locals.blockchainWallet.transferKadimaCoin({
           from: acc.blockchain.wallet.add,
           to: merchantAccount.blockchain.wallet.add,
