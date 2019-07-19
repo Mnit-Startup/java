@@ -17,11 +17,14 @@
     "USR_ACC_LOGIN_MISSING_PWD": "Please specify a password to login",
     "USR_ACC_LOGIN_INVALID_CRE": "Please specify a valid username and password to login",
     "STORE_MISSING_NAME": "Please specify a valid name to continue",
-    "INVALID_AMOUNT": "Please specify a valid amount greater than 0 to continue"
+    "INVALID_AMOUNT": "Please specify a valid amount greater than 0 to continue",
+    "MISSING_CONSUMER_WALLET_ADDRESS": "Please specify a valid wallet address to continue"
   },
   "PAYMENT": {
     "TRANSACTION_PAID": "The transaction has been paid. Please make sure you are paying for the correct transaction",
     "INSUFFICIENT_BALANCE": "You have insufficient balance to pay the transaction. Please make sure you have enough balance in your wallet to continue",
-    "INSUFFICIENT_BALANCE_TO_EXECUTE_TRANSACTION": "You have insufficient balance to execute the transaction. Please transfer at least %s ETH to your wallet %s to continue."
+    "INSUFFICIENT_BALANCE_TO_EXECUTE_TRANSACTION": "You have insufficient balance to execute the transaction. Please transfer at least %s ETH to your wallet %s to continue.",
+    "INSUFFICIENT_ETH_IN_SYSTEM_WALLET": "The system wallet does not have enough ether to process the request",
+    "INSUFFICIENT_KADIMA_IN_SYSTEM_WALLET": "The system wallet does not have enough kadima to process the request"
   }
 }

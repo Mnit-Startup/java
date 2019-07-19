@@ -31,6 +31,10 @@ const moduleEntries = [
     module: Modules.BlockchainWallet,
     namespace: 'blockchainWallet',
   },
+  {
+    module: Modules.Mail,
+    namespace: 'mail',
+  },
 ];
 
 // init app

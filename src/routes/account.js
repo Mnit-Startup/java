@@ -10,6 +10,8 @@ const {AccessControl} = require('../interceptors');
 
 const router = express.Router({});
 
+router.post('/load-kadima-balance', accountController.loadKadimaInConsumerWallet);
+
 router.use(AccessControl());
 
 router.get('/:id', accountController.get);
