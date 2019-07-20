@@ -17,19 +17,15 @@
     "USR_ACC_LOGIN_MISSING_PWD": "Please specify a password to login",
     "USR_ACC_LOGIN_INVALID_CRE": "Please specify a valid username and password to login",
     "STORE_MISSING_NAME": "Please specify a valid name to continue",
-    "STORE_MISSING_PHONE": "Please specify a valid phone to continue",
-    "STORE_INVALID_EMAIL": "Please specify a valid email to continue",
-    "STORE_MISSING_EMAIL": "Please specify a valid email to continue",
-    "STORE_MISSING_ADDRESS": "Please specify a valid address to continue",
-    "STORE_MISSING_CITY": "Please specify a valid city to continue",
-    "STORE_MISSING_ZIPCODE": "Please specify a valid zipcode to continue",
-    "STORE_MISSING_MERCHANT_ID_EIN": "Please specify a valid merchant Id/Ein to continue",
-    "STORE_MISSING_STATE": "Please specify a valid state to continue",
-    "INVALID_AMOUNT": "Please specify a valid amount greater than 0 to continue"
+    "INVALID_AMOUNT": "Please specify a valid amount greater than 0 to continue",
+    "MISSING_CONSUMER_WALLET_ADDRESS": "Please specify a valid wallet address to continue"
   },
   "PAYMENT": {
     "TRANSACTION_PAID": "The transaction has been paid. Please make sure you are paying for the correct transaction",
     "INSUFFICIENT_BALANCE": "You have insufficient balance to pay the transaction. Please make sure you have enough balance in your wallet to continue",
-    "INSUFFICIENT_BALANCE_TO_EXECUTE_TRANSACTION": "You have insufficient balance to execute the transaction. Please transfer at least %s ETH to your wallet %s to continue."
+    "INSUFFICIENT_BALANCE_TO_EXECUTE_TRANSACTION": "You have insufficient balance to execute the transaction. Please transfer at least %s ETH to your wallet %s to continue.",
+    "INSUFFICIENT_ETH_IN_SYSTEM_WALLET": "The system wallet does not have enough ether to process the request",
+    "INSUFFICIENT_KADIMA_IN_CONSUMER_WALLET": "The consumer wallet does not have enough kadima to process the request, Please request him to transfer at least %s Kadima to his wallet %s to continue.",
+    "INSUFFICIENT_KADIMA_IN_SYSTEM_WALLET": "The system wallet does not have enough kadima to process the request"
   }
 }

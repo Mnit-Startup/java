@@ -1,10 +1,6 @@
 [
   "id",
   "name",
-  "contact",
-  "address",
-  "merchantIdEin",
-  "storeProfile",
   "created_at",
   "updated_at"
 ]
