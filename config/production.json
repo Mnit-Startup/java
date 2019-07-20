@@ -19,8 +19,5 @@
   "infura": {
     "endpoint": "https://mainnet.infura.io/v3/{projectId}",
     "chainId": 1
-  },
-  "mail": {
-    "enabled": true
   }
 }

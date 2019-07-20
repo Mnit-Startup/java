@@ -18,8 +18,5 @@
   "infura": {
     "endpoint": "https://ropsten.infura.io/v3/{projectId}",
     "chainId": 3
-  },
-  "mail": {
-    "enabled": false
   }
 }

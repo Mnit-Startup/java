@@ -31,18 +31,5 @@
   },
   "kadima": {
     "contractAddress": "KADIMA_CONTRACT_ADDRESS"
-  },
-  "blockchain": {
-    "blockadeKadimaWallet": {
-      "address": "BLOCKCHAIN_KADIMA_WALLET_ADD",
-      "privateKey": "BLOCKCHAIN_KADIMA_WALLET_KEY"
-    },
-    "blockadeEthWallet": {
-      "address": "BLOCKCHAIN_ETHER_WALLET_ADD",
-      "privateKey": "BLOCKCHAIN_ETHER_WALLET_KEY"
-    }
-  },
-  "sendgrid": {
-    "APIKey": "SENDGRID_API_KEY"
   }
 }
