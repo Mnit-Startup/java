@@ -18,6 +18,19 @@ exports.create = [
       try {
         const store = await res.locals.db.stores.create({
           name: params.name,
+          contact: {
+            phone: params.phone,
+            email: params.email,
+          },
+          address: {
+            street_address: params.street_address,
+            street_address_2: params.street_address_2,
+            city: params.city,
+            state: params.state,
+            zipcode: params.zipcode,
+          },
+          merchant_id_ein: params.merchant_id_ein,
+          store_profile: params.store_profile,
           account_id: acc._id,
         });
         return resolve(_.pick(store.toJSON(), CollectionKeyMaps.Store));
