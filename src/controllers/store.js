@@ -46,3 +46,27 @@ exports.create = [
     });
   },
 ];
+
+exports.get = [
+  UserAccessControl,
+  MerchantAccessControl,
+  (req, res, next) => {
+    const acc = req.user_acc;
+    new Promise(async (resolve, reject) => {
+      try {
+        const stores = await res.locals.db.stores.find({
+          account_id: acc.id,
+        }).sort({name: 1});
+        return resolve(_.map(stores, store => _.pick(store.toJSON(), CollectionKeyMaps.Store)));
+      } catch (e) {
+        return reject(e);
+      }
+    }).asCallback((err, response) => {
+      if (err) {
+        next(err);
+      } else {
+        res.json(response);
+      }
+    });
+  },
+];
