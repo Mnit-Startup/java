@@ -172,7 +172,7 @@ exports.transferKadimaCoin = async (params) => {
       locale: params.locale,
       translate: params.translate,
     };
-    await this.transferGasFromBlockadeEthWallet(args);
+    await module.exports.transferGasFromBlockadeEthWallet(args);
   }
   const payload = {
     nonce,
