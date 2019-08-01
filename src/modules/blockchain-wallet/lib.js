@@ -83,7 +83,7 @@ exports.transferGasFromBlockadeEthWallet = async (params) => {
   const balance = await web3.eth.getBalance(BLOCKADE_ETH_WALLET_ADDRESS);
   Logger.info('Module.BlockChainWallet.transferGasFromBlockadeEthWallet: %s - Current wallet balance - %s wei', requestId, balance);
   // get gas price - string in wei
-  const gasPrice = await web3.eth.getGasPrice();
+  const gasPrice = params.speed * (await web3.eth.getGasPrice());
   // init transaction payload - values can only be in hex
   // note - from, to, nonce are already in hex
   // note - only from, to and value are considered when estimating gas limit
@@ -155,7 +155,7 @@ exports.transferKadimaCoin = async (params) => {
   const method = contract.methods.transfer(params.to, amount);
   const data = method.encodeABI();
   const nonce = await web3.eth.getTransactionCount(params.from);
-  const gasPrice = await web3.eth.getGasPrice();
+  const gasPrice = params.speed * (await web3.eth.getGasPrice());
   const gasLimit = await method.estimateGas({
     from: params.from,
     value: 0,
@@ -169,6 +169,7 @@ exports.transferKadimaCoin = async (params) => {
     const args = {
       to: params.from,
       amount: extraWeiRequired,
+      speed: params.speed,
       locale: params.locale,
       translate: params.translate,
     };

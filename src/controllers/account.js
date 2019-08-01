@@ -47,6 +47,13 @@ exports.loadKadimaInConsumerWallet = [
   // controller
   (req, res, next) => {
     new Promise(async (resolve, reject) => {
+      let {speed} = req.query;
+      if (!Number(speed) || speed < 1) {
+        reject(Error.Unauthorized(res.__('DEFAULT_ERRORS.VALIDATION_ERROR')));
+      }
+      if (!speed) {
+        speed = 1;
+      }
       const {
         wallet,
         amount,
@@ -72,11 +79,11 @@ exports.loadKadimaInConsumerWallet = [
           });
           reject(Error.InvalidRequest(res.__('PAYMENT.INSUFFICIENT_KADIMA_IN_SYSTEM_WALLET')));
         }
-
         const params = {
           from: BLOCKADE_KADIMA_WALLET_ADDRESS,
           to: wallet,
           amount,
+          speed,
           from_wallet_private_key: BLOCKADE_KADIMA_WALLET_PRIVATE_KEY,
           translate: res.__,
           locale: req.getLocale(),
@@ -101,6 +108,13 @@ exports.transferKadimaConsumerToMerchant = [
   // controller
   (req, res, next) => {
     new Promise(async (resolve, reject) => {
+      let {speed} = req.query;
+      if (!Number(speed) || speed < 1) {
+        reject(Error.Unauthorized(res.__('DEFAULT_ERRORS.VALIDATION_ERROR')));
+      }
+      if (!speed) {
+        speed = 1;
+      }
       const {
         consumer_wallet,
         consumer_wallet_pvt_key,
@@ -132,6 +146,7 @@ exports.transferKadimaConsumerToMerchant = [
           from: consumer_wallet,
           to: merchant_wallet,
           amount,
+          speed,
           from_wallet_private_key: privateKey,
           translate: res.__,
           locale: req.getLocale(),
