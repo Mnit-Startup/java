@@ -1,0 +1,12 @@
+{
+    "localeSyncDir": [
+        "tmp",
+        "locale-sync"
+    ],
+    "localesDir": [
+        "src",
+        "locales"
+    ],
+    "localeBase": "en",
+    "localeTarget": "fr"
+}

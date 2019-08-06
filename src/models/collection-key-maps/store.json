@@ -1,0 +1,10 @@
+[
+  "id",
+  "name",
+  "contact",
+  "address",
+  "merchant_id_ein",
+  "store_profile",
+  "created_at",
+  "updated_at"
+]

@@ -1,0 +1,29 @@
+{
+  "logger": {
+    "console": false
+  },
+  "papertrail": {
+    "host": null,
+    "port": null,
+    "program": "api-staging",
+    "handleExceptions": true
+  },
+  "sentry": {
+    "dsn": null,
+    "env": "staging"
+  },
+  "mongoDb": {
+    "debug": false,
+    "uri": null
+  },
+  "infura": {
+    "endpoint": "https://ropsten.infura.io/v3/{projectId}",
+    "chainId": 3
+  },
+  "kadima": {
+    "contractAddress": "0x0237c6f4099531D908e57c47A5F4E8255F9E049D"
+  },
+  "mail": {
+    "enabled": true
+  }
+}

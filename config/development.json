@@ -1,0 +1,25 @@
+{
+  "logger": {
+    "console": true
+  },
+  "www": {
+    "port": 8080
+  },
+  "papertrail": {
+    "host": "",
+    "port": "",
+    "program": "",
+    "handleExceptions": false
+  },
+  "mongoDb": {
+    "debug": true,
+    "uri": "mongodb://localhost:27017/blockade-development"
+  },
+  "infura": {
+    "endpoint": "https://ropsten.infura.io/v3/{projectId}",
+    "chainId": 3
+  },
+  "mail": {
+    "enabled": false
+  }
+}

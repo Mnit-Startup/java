@@ -1,0 +1,35 @@
+{
+  "accounts": {
+    "jwt": {
+      "exp": 608400
+    }
+  },
+  "app": {
+    "tempDir": "tmp",
+    "locales": [
+      "en",
+      "fr"
+    ],
+    "locale": "en"
+  },
+  "sendgrid": {
+    "template": {
+      "en": {
+        "insufficientKadimaInSystemWallet": "d-7533a3e90f8f43a3b548c1ff1d463c9e",
+        "insufficientEtherInSystemWallet": "d-a946b530b8db4416a8f89e39d33bc70e"
+      }
+    }
+  },
+  "mail": {
+    "locale": "en",
+    "sender": {
+      "accounts": {
+        "email": "developer@blockade.com",
+        "name": "Blockade"
+      }
+    },
+    "admin": {
+      "email": "ryan.shaw@blockadetech.io"
+    }
+  }
+}

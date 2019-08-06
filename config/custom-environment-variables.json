@@ -1,0 +1,48 @@
+{
+  "accounts": {
+    "jwt": {
+      "key": "ACCOUNTS_JWT_KEY"
+    },
+    "wallet": {
+      "encryption_key": "ACCOUNTS_WALLET_ENCRYPTION_KEY"
+    }
+  },
+  "logger": {
+    "console": "LOGGER_CONSOLE"
+  },
+  "www": {
+    "port": "PORT"
+  },
+  "sentry": {
+    "dsn": "SENTRY_DSN",
+    "env": "SENTRY_ENV"
+  },
+  "papertrail": {
+    "host": "PAPERTRAIL_HOST",
+    "port": "PAPERTRAIL_PORT",
+    "program": "PAPERTRAIL_PROGRAM"
+  },
+  "mongoDb": {
+    "uri": "MONGODB_URI"
+  },
+  "infura": {
+    "projectId": "INFURA_PROJECT_ID",
+    "chainId": "INFURA_CHAIN_ID"
+  },
+  "kadima": {
+    "contractAddress": "KADIMA_CONTRACT_ADDRESS"
+  },
+  "blockchain": {
+    "blockadeKadimaWallet": {
+      "address": "BLOCKCHAIN_KADIMA_WALLET_ADD",
+      "privateKey": "BLOCKCHAIN_KADIMA_WALLET_KEY"
+    },
+    "blockadeEthWallet": {
+      "address": "BLOCKCHAIN_ETHER_WALLET_ADD",
+      "privateKey": "BLOCKCHAIN_ETHER_WALLET_KEY"
+    }
+  },
+  "sendgrid": {
+    "APIKey": "SENDGRID_API_KEY"
+  }
+}

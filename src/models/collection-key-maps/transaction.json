@@ -1,0 +1,10 @@
+[
+  "id",
+  "amount",
+  "store",
+  "payee",
+  "paid_on",
+  "payment_status",
+  "created_at",
+  "updated_at"
+]

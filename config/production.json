@@ -1,0 +1,26 @@
+{
+  "logger": {
+    "console": false
+  },
+  "papertrail": {
+    "host": null,
+    "port": null,
+    "program": "api-production",
+    "handleExceptions": true
+  },
+  "sentry": {
+    "dsn": null,
+    "env": "production"
+  },
+  "mongoDb": {
+    "debug": false,
+    "uri": null
+  },
+  "infura": {
+    "endpoint": "https://mainnet.infura.io/v3/{projectId}",
+    "chainId": 1
+  },
+  "mail": {
+    "enabled": true
+  }
+}
