@@ -36,5 +36,8 @@
     "INSUFFICIENT_ETH_IN_SYSTEM_WALLET": "The system wallet does not have enough ether to process the request",
     "INSUFFICIENT_KADIMA_IN_CONSUMER_WALLET": "The consumer wallet does not have enough kadima to process the request, Please request him to transfer at least %s Kadima to his wallet %s to continue.",
     "INSUFFICIENT_KADIMA_IN_SYSTEM_WALLET": "The system wallet does not have enough kadima to process the request"
+  },
+  "PRODUCT": {
+    "NOT_ACTIVE": "Please select a valid active product to continue"
   }
 }

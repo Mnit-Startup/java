@@ -2,6 +2,7 @@ const Error = require('./error');
 const Logger = require('./logger');
 const CryptoUtils = require('./crypto-utils');
 const Utils = require('./utils');
+const FSUtils = require('./fs-utils');
 
 module.exports = {
   Error,
@@ -10,4 +11,5 @@ module.exports = {
   Logger,
   CryptoUtils,
   Utils,
+  FSUtils,
 };

@@ -31,5 +31,20 @@
     "admin": {
       "email": "ryan.shaw@blockadetech.io"
     }
+  },
+  "aws": {
+    "sdk": {
+      "options": {
+        "signatureVersion": "v4"
+      }
+    },
+    "services": {
+      "s3": {
+        "buckets": {
+          "merchantAssets": "blockade-merchant-assets"
+        },
+        "linkBase": "https://s3.amazonaws.com"
+      }
+    }
   }
 }

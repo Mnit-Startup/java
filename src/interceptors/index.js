@@ -4,6 +4,7 @@ const UserAccessControl = require('./user-access-control');
 const ConsumerAccessControl = require('./consumer-access-control');
 const MerchantAccessControl = require('./merchant-access-control');
 const StoreAccessControl = require('./store-access-control');
+const AcceptFile = require('./accept-file');
 
 module.exports = {
   AccessControl,
@@ -12,4 +13,5 @@ module.exports = {
   ConsumerAccessControl,
   MerchantAccessControl,
   StoreAccessControl,
+  AcceptFile,
 };

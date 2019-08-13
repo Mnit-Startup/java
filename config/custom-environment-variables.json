@@ -44,5 +44,13 @@
   },
   "sendgrid": {
     "APIKey": "SENDGRID_API_KEY"
+  },
+  "aws": {
+    "sdk": {
+      "access": {
+        "key": "AWS_ACCESS_KEY",
+        "secret": "AWS_ACCESS_SECRET"
+      }
+    }
   }
 }

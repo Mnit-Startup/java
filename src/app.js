@@ -35,6 +35,10 @@ const moduleEntries = [
     module: Modules.Mail,
     namespace: 'mail',
   },
+  {
+    module: Modules.Storage,
+    namespace: 'storage',
+  },
 ];
 
 // init app
