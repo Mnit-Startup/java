@@ -5,6 +5,7 @@ const Product = require('./product');
 const Transaction = require('./transaction');
 const LoadKadima = require('./loadKadima');
 const TransferKadimaConsumerToMerchant = require('./transfer-kdm-consumer-to-merchant');
+const Employee = require('./employee');
 
 module.exports = {
   Account,
@@ -14,4 +15,5 @@ module.exports = {
   Transaction,
   LoadKadima,
   TransferKadimaConsumerToMerchant,
+  Employee,
 };

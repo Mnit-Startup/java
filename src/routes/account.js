@@ -8,6 +8,8 @@ const transactionController = require('../controllers/transaction');
 
 const imageController = require('../controllers/upload-image');
 
+const merchantController = require('../controllers/merchant');
+
 const {AccessControl} = require('../interceptors');
 
 const router = express.Router({});
@@ -43,5 +45,13 @@ router.put('/:id/store/:storeId/product/:productId', storeController.updateProdu
 router.get('/:id/store/:storeId/product/:productId', storeController.getProduct);
 
 router.get('/:id/store/:storeId/products', storeController.getProducts);
+
+router.post('/:id/employee', merchantController.createEmployee);
+
+router.get('/:id/employees/:role', merchantController.getEmployees);
+
+router.delete('/:id/employee/:empId', merchantController.removeEmployee);
+
+router.put('/:id/employee/:empId', merchantController.updateEmployee);
 
 module.exports = router;
