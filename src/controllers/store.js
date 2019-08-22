@@ -20,6 +20,14 @@ exports.create = [
     const params = req.body;
     new Promise(async (resolve, reject) => {
       try {
+        // check for unique store id provided by merchant
+        const existingStore = await res.locals.db.stores.findOne({store_identifier: params.store_identifier});
+        if (existingStore) {
+          return reject(Error.ValidationError([{
+            param: 'store_identifier',
+            msg: res.__('VAL_ERRORS.STORE_ID_EXISTS'),
+          }]));
+        }
         const store = await res.locals.db.stores.create({
           name: params.name,
           contact: {
@@ -35,6 +43,7 @@ exports.create = [
           },
           merchant_id_ein: params.merchant_id_ein,
           store_profile: params.store_profile,
+          store_identifier: params.store_identifier.toLowerCase(),
           account_id: acc._id,
         });
         return resolve(_.pick(store.toJSON(), CollectionKeyMaps.Store));

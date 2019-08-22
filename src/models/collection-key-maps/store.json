@@ -5,6 +5,7 @@
   "address",
   "merchant_id_ein",
   "store_profile",
+  "store_identifier",
   "created_at",
   "updated_at"
 ]

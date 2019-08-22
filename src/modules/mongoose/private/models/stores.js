@@ -15,6 +15,7 @@ const schema = new mongoose.Schema({
   },
   merchant_id_ein: String,
   store_profile: String,
+  store_identifier: String,
   account_id: String,
 }, {
   timestamps: {

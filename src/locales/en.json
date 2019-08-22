@@ -25,9 +25,11 @@
     "STORE_MISSING_ZIPCODE": "Please specify a valid zipcode to continue",
     "STORE_MISSING_MERCHANT_ID_EIN": "Please specify a valid merchant Id/Ein to continue",
     "STORE_MISSING_STATE": "Please specify a valid state to continue",
+    "STORE_MISSING_STORE_IDENTIFIER": "Please specify a valid store identifier to continue",
     "INVALID_AMOUNT": "Please specify a valid amount greater than 0 to continue",
     "MISSING_CONSUMER_WALLET_ADDRESS": "Please specify a valid consumer wallet address to continue",
-    "MISSING_MERCHANT_WALLET_ADDRESS": "Please specify a valid merchant wallet address to continue"
+    "MISSING_MERCHANT_WALLET_ADDRESS": "Please specify a valid merchant wallet address to continue",
+    "STORE_ID_EXISTS": "A store is already registered with this store id. Please use a different store id to complete the registration"
   },
   "PAYMENT": {
     "TRANSACTION_PAID": "The transaction has been paid. Please make sure you are paying for the correct transaction",
