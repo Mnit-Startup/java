@@ -48,11 +48,11 @@ exports.loadKadimaInConsumerWallet = [
   (req, res, next) => {
     new Promise(async (resolve, reject) => {
       let {speed} = req.query;
-      if (!Number(speed) || speed < 1) {
-        reject(Error.Unauthorized(res.__('DEFAULT_ERRORS.VALIDATION_ERROR')));
-      }
       if (!speed) {
         speed = 1;
+      }
+      if (!Number(speed) || speed < 1) {
+        reject(Error.Unauthorized(res.__('DEFAULT_ERRORS.VALIDATION_ERROR')));
       }
       const {
         wallet,
@@ -109,11 +109,11 @@ exports.transferKadimaConsumerToMerchant = [
   (req, res, next) => {
     new Promise(async (resolve, reject) => {
       let {speed} = req.query;
-      if (!Number(speed) || speed < 1) {
-        reject(Error.Unauthorized(res.__('DEFAULT_ERRORS.VALIDATION_ERROR')));
-      }
       if (!speed) {
         speed = 1;
+      }
+      if (!Number(speed) || speed < 1) {
+        reject(Error.Unauthorized(res.__('DEFAULT_ERRORS.VALIDATION_ERROR')));
       }
       const {
         consumer_wallet,

@@ -148,12 +148,15 @@ exports.payTransaction = [
           _id: transaction.store.account_id,
         });
 
+        const speed = 1;
         const paymentTransaction = await res.locals.blockchainWallet.transferKadimaCoin({
           from: acc.blockchain.wallet.add,
           to: merchantAccount.blockchain.wallet.add,
           amount: transaction.amount,
           from_wallet_private_key: res.locals.accounts.decryptWalletPrivateKey(acc.blockchain.wallet.enc),
+          speed,
           translate: res.__,
+          locale: req.getLocale(),
         });
 
         const now = new Date();
