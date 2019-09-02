@@ -3,7 +3,7 @@ const _ = require('lodash');
 const Promise = require('bluebird');
 const {CollectionKeyMaps, ValidationSchemas} = require('../models');
 const {
-  UserAccessControl, MerchantAccessControl, InputValidator, StoreAccessControl,
+  UserAccessControl, MerchantAccessControl, InputValidator,
 } = require('../interceptors');
 const {Errors} = require('../helpers');
 
@@ -179,90 +179,6 @@ exports.updateEmployee = [
         return reject(e);
       }
     }).asCallback(async (err, response) => {
-      if (err) {
-        next(err);
-      } else {
-        res.json(response);
-      }
-    });
-  },
-];
-
-exports.assignStoreToEmployee = [
-  UserAccessControl,
-  MerchantAccessControl,
-  StoreAccessControl,
-  (req, res, next) => {
-    new Promise(async (resolve, reject) => {
-      try {
-        const employeeDetails = {
-          store: req.params.storeId,
-          employee: req.params.empId,
-          role: req.params.role,
-        };
-
-        const assignedStore = await res.locals.db.employeeDetails.findOne(employeeDetails);
-        if (!_.isNil(assignedStore) && assignedStore.active) {
-          return reject(Errors.ValidationError([{
-            param: 'store',
-            msg: res.__('VAL_ERRORS.STORE_ALREADY_ASSIGNED'),
-          }]));
-        }
-        if (!_.isNil(assignedStore) && !assignedStore.active) {
-          assignedStore.set({
-            active: true,
-          });
-          await assignedStore.save();
-          return resolve(_.pick(assignedStore.toJSON(), CollectionKeyMaps.EmployeeDetail));
-        }
-        employeeDetails.active = true;
-        const assignStore = await res.locals.db.employeeDetails.create(employeeDetails);
-
-        return resolve(_.pick(assignStore.toJSON(), CollectionKeyMaps.EmployeeDetail));
-      } catch (e) {
-        return reject(e);
-      }
-    }).asCallback((err, response) => {
-      if (err) {
-        next(err);
-      } else {
-        res.json(response);
-      }
-    });
-  },
-];
-
-exports.removeEmployeeFromStore = [
-  UserAccessControl,
-  MerchantAccessControl,
-  StoreAccessControl,
-  (req, res, next) => {
-    new Promise(async (resolve, reject) => {
-      try {
-        const options = {new: true};
-        const updatedEmployeeDetail = await res.locals.db.employeeDetails.findOneAndUpdate({
-          employee: req.params.empId,
-          store: req.params.storeId,
-          role: req.params.role,
-        }, {
-          $set: {
-            active: false,
-          },
-        },
-        options,
-        (err, detail) => {
-          if (!_.isNil(err)) {
-            reject(err);
-          } else if (_.isNull(detail)) {
-            reject(Errors.NotFound());
-          }
-        });
-        // return updated
-        return resolve(_.pick(updatedEmployeeDetail.toJSON(), CollectionKeyMaps.EmployeeDetail));
-      } catch (e) {
-        return reject(e);
-      }
-    }).asCallback((err, response) => {
       if (err) {
         next(err);
       } else {
