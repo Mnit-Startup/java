@@ -54,4 +54,8 @@ router.delete('/:id/employee/:empId', merchantController.removeEmployee);
 
 router.put('/:id/employee/:empId', merchantController.updateEmployee);
 
+router.post('/:id/store/:storeId/:role/:empId', merchantController.assignStoreToEmployee);
+
+router.delete('/:id/store/:storeId/:role/:empId', merchantController.removeEmployeeFromStore);
+
 module.exports = router;

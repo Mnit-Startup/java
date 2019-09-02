@@ -3,8 +3,9 @@ const _ = require('lodash');
 const Promise = require('bluebird');
 const {CollectionKeyMaps, ValidationSchemas} = require('../models');
 const {
-  UserAccessControl, MerchantAccessControl, InputValidator,
+  UserAccessControl, MerchantAccessControl, InputValidator, StoreAccessControl,
 } = require('../interceptors');
+const {Errors} = require('../helpers');
 
 exports.createEmployee = [
   UserAccessControl,
@@ -62,9 +63,22 @@ exports.getEmployees = [
             name: 1,
           },
         });
-        return resolve(_.map(employees, employee => _.pick(employee.toJSON(), CollectionKeyMaps.Employee)));
+        const promises = _.map(employees, emp => emp.getEmployeeDetail(res.locals.db)
+          .then((stores) => {
+            const employee = _.pick(emp.toJSON(), CollectionKeyMaps.Employee);
+            employee.stores = stores;
+            return employee;
+          }));
+        Promise.all(promises)
+          .asCallback((error, response) => {
+            if (error) {
+              next(error);
+            } else {
+              resolve(response);
+            }
+          });
       } catch (e) {
-        return reject(e);
+        reject(e);
       }
     }).asCallback((err, response) => {
       if (err) {
@@ -95,7 +109,7 @@ exports.removeEmployee = [
           if (!_.isNil(err)) {
             reject(err);
           } else if (_.isNull(product)) {
-            reject(Error.NotFound());
+            reject(Errors.NotFound());
           }
         });
         // return updated
@@ -154,10 +168,97 @@ exports.updateEmployee = [
           if (!_.isNil(err)) {
             reject(err);
           } else if (_.isNull(employee)) {
-            reject(Error.NotFound());
+            reject(Errors.NotFound());
           }
         });
-        return resolve(_.pick(updatedEmployee.toJSON(), CollectionKeyMaps.Employee));
+        const stores = await updatedEmployee.getEmployeeDetail(res.locals.db);
+        const employee = _.pick(updatedEmployee.toJSON(), CollectionKeyMaps.Employee);
+        employee.stores = stores;
+        return resolve(employee);
+      } catch (e) {
+        return reject(e);
+      }
+    }).asCallback(async (err, response) => {
+      if (err) {
+        next(err);
+      } else {
+        res.json(response);
+      }
+    });
+  },
+];
+
+exports.assignStoreToEmployee = [
+  UserAccessControl,
+  MerchantAccessControl,
+  StoreAccessControl,
+  (req, res, next) => {
+    new Promise(async (resolve, reject) => {
+      try {
+        const employeeDetails = {
+          store: req.params.storeId,
+          employee: req.params.empId,
+          role: req.params.role,
+        };
+
+        const assignedStore = await res.locals.db.employeeDetails.findOne(employeeDetails);
+        if (!_.isNil(assignedStore) && assignedStore.active) {
+          return reject(Errors.ValidationError([{
+            param: 'store',
+            msg: res.__('VAL_ERRORS.STORE_ALREADY_ASSIGNED'),
+          }]));
+        }
+        if (!_.isNil(assignedStore) && !assignedStore.active) {
+          assignedStore.set({
+            active: true,
+          });
+          await assignedStore.save();
+          return resolve(_.pick(assignedStore.toJSON(), CollectionKeyMaps.EmployeeDetail));
+        }
+        employeeDetails.active = true;
+        const assignStore = await res.locals.db.employeeDetails.create(employeeDetails);
+
+        return resolve(_.pick(assignStore.toJSON(), CollectionKeyMaps.EmployeeDetail));
+      } catch (e) {
+        return reject(e);
+      }
+    }).asCallback((err, response) => {
+      if (err) {
+        next(err);
+      } else {
+        res.json(response);
+      }
+    });
+  },
+];
+
+exports.removeEmployeeFromStore = [
+  UserAccessControl,
+  MerchantAccessControl,
+  StoreAccessControl,
+  (req, res, next) => {
+    new Promise(async (resolve, reject) => {
+      try {
+        const options = {new: true};
+        const updatedEmployeeDetail = await res.locals.db.employeeDetails.findOneAndUpdate({
+          employee: req.params.empId,
+          store: req.params.storeId,
+          role: req.params.role,
+        }, {
+          $set: {
+            active: false,
+          },
+        },
+        options,
+        (err, detail) => {
+          if (!_.isNil(err)) {
+            reject(err);
+          } else if (_.isNull(detail)) {
+            reject(Errors.NotFound());
+          }
+        });
+        // return updated
+        return resolve(_.pick(updatedEmployeeDetail.toJSON(), CollectionKeyMaps.EmployeeDetail));
       } catch (e) {
         return reject(e);
       }

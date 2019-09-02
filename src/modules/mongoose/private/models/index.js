@@ -5,6 +5,7 @@ const stores = require('./stores');
 const products = require('./products');
 const transactions = require('./transactions');
 const employees = require('./employees');
+const employeeDetails = require('./employee-details');
 
 module.exports = {
   accounts,
@@ -14,4 +15,5 @@ module.exports = {
   products,
   transactions,
   employees,
+  employeeDetails,
 };
