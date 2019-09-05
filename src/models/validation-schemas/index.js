@@ -6,6 +6,7 @@ const Transaction = require('./transaction');
 const LoadKadima = require('./loadKadima');
 const TransferKadimaConsumerToMerchant = require('./transfer-kdm-consumer-to-merchant');
 const Employee = require('./employee');
+const EmployeeLogin = require('./employee-login');
 
 module.exports = {
   Account,
@@ -16,4 +17,5 @@ module.exports = {
   LoadKadima,
   TransferKadimaConsumerToMerchant,
   Employee,
+  EmployeeLogin,
 };

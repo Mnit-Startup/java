@@ -131,3 +131,89 @@ exports.login = [
     });
   },
 ];
+
+exports.employeeLogin = [
+  // validation schema
+  ValidationSchemas.EmployeeLogin,
+  // validation interceptor
+  InputValidator(),
+  // controller
+  (req, res, next) => {
+    const params = req.body;
+
+    new Promise(async (resolve, reject) => {
+      try {
+        // query store using store identifier
+        const store = await res.locals.db.stores.findOne({store_identifier: params.store_identifier});
+
+        // reject if no such store
+        if (!store) {
+          return reject(Errors.InvalidRequest(res.__('VAL_ERRORS.EMP_ACC_LOGIN_INVALID_STORE_IDENTIFIER')));
+        }
+
+        // query the employees of this store
+        const employeesOnThisStore = await res.locals.db.employeeDetails.find({store: store.id});
+
+        // reject if no employees on the store
+        if (employeesOnThisStore.length === 0) {
+          return reject(Errors.InvalidRequest(res.__('VAL_ERRORS.EMP_ACC_LOGIN_ACCESS_DENIED')));
+        }
+
+        // query employees with this employee number
+        const employees = await res.locals.db.employees.find({emp_number: params.emp_number});
+
+        // reject if no employees with this employee number
+        if (employees.length === 0) {
+          return reject(Errors.InvalidRequest(res.__('VAL_ERRORS.EMP_ACC_LOGIN_INVALID_CRE')));
+        }
+
+        // find the employee with this number and acces to above store
+        let index;
+        _.forEach(employees, (emp) => {
+          index = _.findIndex(employeesOnThisStore, detail => detail.employee.equals(emp._id) && detail.active);
+          if (index !== -1) {
+            return false;
+          }
+          return true;
+        });
+
+        // reject if no employee on the store with access
+        if (index === -1) {
+          return reject(Errors.InvalidRequest(res.__('VAL_ERRORS.EMP_ACC_LOGIN_ACCESS_DENIED')));
+        }
+
+        // employee trying to login
+        const employee = employees[index];
+
+        // password verification
+        const passwordHash = await res.locals.accounts.generatePasswordHash(params.pin, employee.pin.salt);
+
+        // reject if password match
+        if (employee.pin.hash !== passwordHash) {
+          return reject(Errors.InvalidRequest(res.__('VAL_ERRORS.EMP_ACC_LOGIN_INVALID_CRE')));
+        }
+
+        // generate jwt
+        const access = await res.locals.accounts.generateJWT({
+          id: employee.id,
+          role: employee.role,
+        });
+
+        // resolve promise
+        return resolve({
+          account_id: employee.id,
+          access_token: access.token,
+          role: employee.role,
+        });
+      } catch (e) {
+        return reject(e);
+      }
+    }).asCallback((err, response) => {
+      if (err) {
+        next(err);
+      } else {
+        res.json(response);
+      }
+    });
+  },
+];

@@ -30,7 +30,13 @@
     "MISSING_CONSUMER_WALLET_ADDRESS": "Please specify a valid consumer wallet address to continue",
     "MISSING_MERCHANT_WALLET_ADDRESS": "Please specify a valid merchant wallet address to continue",
     "STORE_ID_EXISTS": "A store is already registered with this store id. Please use a different store id to complete the registration",
-    "STORE_ALREADY_ASSIGNED": "This store is already assigned to this employee. Please select a different store to continue"
+    "STORE_ALREADY_ASSIGNED": "This store is already assigned to this employee. Please select a different store to continue",
+    "EMP_ACC_LOGIN_INVALID_STORE_IDENTIFIER": "Please specify a valid store id to login",
+    "EMP_ACC_LOGIN_INVALID_CRE": "Plese specify a valid employee number and password to login",
+    "EMP_ACC_LOGIN_ACCESS_DENIED": "Please ask your store owner to provide access to the store",
+    "EMP_ACC_LOGIN_MISSING_EMP_NUMBER": "Please specify an employee number to login",
+    "EMP_ACC_LOGIN_MISSING_STORE_IDENTIFIER": "Please specify a store id to continue",
+    "EMP_ACC_LOGIN_MISSING_PIN": "Please specify a pin to continue"
   },
   "PAYMENT": {
     "TRANSACTION_PAID": "The transaction has been paid. Please make sure you are paying for the correct transaction",
