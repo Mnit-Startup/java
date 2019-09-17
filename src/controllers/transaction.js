@@ -13,24 +13,49 @@ const {Error} = require('../helpers');
 
 exports.createStoreTransaction = [
   UserAccessControl,
-  MerchantAccessControl,
   StoreAccessControl,
   // validation schema
   ValidationSchemas.Transaction,
   // validation intercepter
   InputValidator(),
   (req, res, next) => {
-    const params = req.body;
+    const {cart_items} = req.body;
     new Promise(async (resolve, reject) => {
       try {
+        let total = 0;
+        // get all the id of products in an array
+        const productIds = _.map(cart_items, cart_item => cart_item.product);
+
+        // query all the products from db using product ids array in single query
+        const products = await res.locals.db.products.find({
+          _id: {
+            $in: productIds,
+          },
+        });
+
+        // loop through and calculate total amount of transaction
+        _.forEach(products, (product) => {
+          if (!product.active) {
+            reject(Error.InvalidRequest(res.__('PRODUCT.NOT_ACTIVE')));
+          }
+          const index = _.findIndex(cart_items, cart_item => cart_item.product === product.id);
+          if (index !== -1) {
+            total += cart_items[index].quantity * product.price;
+          }
+        });
+
+        // create transaction
         const transaction = await res.locals.db.transactions.create({
           store: req.store.id,
-          amount: params.amount,
+          amount: total,
           payment_status: PaymentStatus.PENDING_PAYMENT,
+          cart_items,
         });
-        return resolve(_.pick(transaction.toJSON(), CollectionKeyMaps.Transaction));
+
+        // resolve
+        resolve(_.pick(transaction.toJSON(), CollectionKeyMaps.Transaction));
       } catch (e) {
-        return reject(e);
+        reject(e);
       }
     }).asCallback((err, response) => {
       if (err) {

@@ -13,6 +13,13 @@ const schema = new mongoose.Schema({
   },
   paid_on: Date,
   payment_info: mongoose.Schema.Types.Mixed,
+  cart_items: [{
+    product: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Product',
+    },
+    quantity: Number,
+  }],
 }, {
   timestamps: {
     createdAt: 'created_at',

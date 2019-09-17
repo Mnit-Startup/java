@@ -236,7 +236,6 @@ exports.getProduct = [
 
 exports.getProducts = [
   UserAccessControl,
-  MerchantAccessControl,
   StoreAccessControl,
   (req, res, next) => {
     const {storeId} = req.params;

@@ -199,11 +199,15 @@ exports.employeeLogin = [
           role: employee.role,
         });
 
+        // store_id: id of the store in which employee is trying to log in with store identifer
+        // merchant_id: merchant of the employee who is trying to log in
         // resolve promise
         return resolve({
           account_id: employee.id,
           access_token: access.token,
           role: employee.role,
+          merchant_id: employee.merchant,
+          store_id: store.id,
         });
       } catch (e) {
         return reject(e);
