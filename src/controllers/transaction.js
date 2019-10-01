@@ -173,6 +173,11 @@ exports.payTransaction = [
           _id: transaction.store.account_id,
         });
 
+        transaction.set({
+          payment_status: PaymentStatus.PROCESSING,
+        });
+        await transaction.save();
+
         const speed = 1;
         const paymentTransaction = await res.locals.blockchainWallet.transferKadimaCoin({
           from: acc.blockchain.wallet.add,
