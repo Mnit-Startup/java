@@ -1,0 +1,12 @@
+[
+    "id",
+    "name",
+    "price",
+    "sku_number",
+    "taxable",
+    "image",
+    "active",
+    "created_at",
+    "updated_at"
+  ]
+  

@@ -2,6 +2,8 @@ const Promise = require('bluebird');
 
 const {Error} = require('../helpers');
 
+const {Roles} = require('../models');
+
 /**
  * @param [opts]
  * @param {String} opts.role
@@ -41,7 +43,14 @@ module.exports = (opts) => {
         return reject(Error.Forbidden());
       }
       // load user account
-      const acc = await res.locals.db.accounts.findById(decoded.id);
+      let acc;
+      // if consumer or merchant locate in accounts
+      if (decoded.role === Roles.CONSUMER || decoded.role === Roles.MERCHANT) {
+        acc = await res.locals.db.accounts.findById(decoded.id);
+      } else {
+        // if employee locate in employees
+        acc = await res.locals.db.employees.findById(decoded.id);
+      }
       // verify acc
       if (!acc) {
         return reject(Error.Unauthorized(res.__('DEFAULT_ERRORS.INVALID_AUTH')));

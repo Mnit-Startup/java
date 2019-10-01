@@ -8,4 +8,6 @@ router.post('/register/:role', controller.register);
 
 router.post('/login', controller.login);
 
+router.post('/employee-login', controller.employeeLogin);
+
 module.exports = router;
