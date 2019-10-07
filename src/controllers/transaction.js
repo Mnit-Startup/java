@@ -163,6 +163,9 @@ exports.payTransaction = [
         if (transaction.payment_status === PaymentStatus.PAID) {
           return reject(Error.InvalidRequest(res.__('PAYMENT.TRANSACTION_PAID')));
         }
+        if (transaction.payment_status === PaymentStatus.PROCESSING) {
+          return reject(Error.InvalidRequest(res.__('PAYMENT.TRANSACTION_IN_PROCESS')));
+        }
         // Check that the user has enough balance to pay
         const balance = await res.locals.blockchainWallet.getKadimaBalance(acc.blockchain.wallet.add);
         if (balance.balance < transaction.amount) {
