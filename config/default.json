@@ -41,7 +41,7 @@
     "services": {
       "s3": {
         "buckets": {
-          "merchantAssets": "blockade-merchant-assets"
+          "merchantAssets": "blockade.merchant.assets"
         },
         "linkBase": "https://s3.amazonaws.com"
       }
