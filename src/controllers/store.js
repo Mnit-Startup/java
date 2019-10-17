@@ -45,6 +45,7 @@ exports.create = [
           store_profile: params.store_profile,
           store_identifier: params.store_identifier.toLowerCase(),
           account_id: acc._id,
+          image: params.image,
         });
         return resolve(_.pick(store.toJSON(), CollectionKeyMaps.Store));
       } catch (e) {
