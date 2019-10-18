@@ -24,6 +24,8 @@ router.get('/:id', accountController.get);
 
 router.get('/:id/stores', storeController.get);
 
+router.get('/:id/store/:storeId', storeController.getStore);
+
 router.get('/:id/wallet/:address/balance', accountController.getBalance);
 
 router.post('/:id/store', storeController.create);

@@ -85,6 +85,29 @@ exports.get = [
   },
 ];
 
+exports.getStore = [
+  UserAccessControl,
+  StoreAccessControl,
+  (req, res, next) => {
+    new Promise(async (resolve, reject) => {
+      try {
+        const store = await res.locals.db.stores.findOne({
+          _id: req.params.storeId,
+        });
+        return resolve(_.pick(store.toJSON(), CollectionKeyMaps.Store));
+      } catch (e) {
+        return reject(e);
+      }
+    }).asCallback((err, response) => {
+      if (err) {
+        next(err);
+      } else {
+        res.json(response);
+      }
+    });
+  },
+];
+
 exports.createProduct = [
   UserAccessControl,
   MerchantAccessControl,
