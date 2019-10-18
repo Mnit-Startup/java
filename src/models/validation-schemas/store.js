@@ -85,4 +85,9 @@ module.exports = checkSchema({
       errorMessage: (value, {req}) => req.__('VAL_ERRORS.STORE_MISSING_STORE_IDENTIFIER'),
     },
   },
+  image: {
+    in: 'body',
+    trim: true,
+    optional: true,
+  },
 });

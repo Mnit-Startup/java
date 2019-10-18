@@ -45,6 +45,7 @@ exports.create = [
           store_profile: params.store_profile,
           store_identifier: params.store_identifier.toLowerCase(),
           account_id: acc._id,
+          image: params.image,
         });
         return resolve(_.pick(store.toJSON(), CollectionKeyMaps.Store));
       } catch (e) {
@@ -71,6 +72,29 @@ exports.get = [
           account_id: acc.id,
         }).sort({name: 1});
         return resolve(_.map(stores, store => _.pick(store.toJSON(), CollectionKeyMaps.Store)));
+      } catch (e) {
+        return reject(e);
+      }
+    }).asCallback((err, response) => {
+      if (err) {
+        next(err);
+      } else {
+        res.json(response);
+      }
+    });
+  },
+];
+
+exports.getStore = [
+  UserAccessControl,
+  StoreAccessControl,
+  (req, res, next) => {
+    new Promise(async (resolve, reject) => {
+      try {
+        const store = await res.locals.db.stores.findOne({
+          _id: req.params.storeId,
+        });
+        return resolve(_.pick(store.toJSON(), CollectionKeyMaps.Store));
       } catch (e) {
         return reject(e);
       }
