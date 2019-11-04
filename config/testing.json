@@ -1,9 +1,10 @@
 {
   "app": {
-    "root": "http://localhost:8080"
+    "root": "http://localhost:5000"
   },
   "logger": {
-    "console": true
+    "console": true,
+    "error": true
   },
   "papertrail": {
     "host": "",
@@ -16,6 +17,46 @@
   },
   "mongoDb": {
     "debug": false,
-    "uri": null
+    "uri": "mongodb://127.0.0.1:27018/blockade-testing"
+  },
+  "accounts": {
+    "jwt": {
+      "key": "TEST"
+    },
+    "wallet": {
+      "encryption_key": "NimJo4cgvasLEDEI09FIsWMv8IatBE/gNIZCpswxyRQ="
+    }
+  },
+  "infura": {
+    "projectId": "5f16915d0535488a895fc554ce87c1d3",
+    "endpoint": "https://ropsten.infura.io/v3/{projectId}",
+    "chainId": 3
+  },
+  "kadima": {
+    "contractAddress": "0x0237c6f4099531D908e57c47A5F4E8255F9E049D"
+  },
+  "aws": {
+    "sdk": {
+      "access": {
+        "key": "AKIAISNWPTVQT6PY2HEA",
+        "secret": "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"
+      }
+    }
+  },
+  "blockchain": {
+    "blockadeKadimaWallet": {
+      "address": "0xf894dAc1b55C2f9f1D9164f293957Fb96551fceA",
+      "privateKey": "37C558170E7C7D5201AB468436B9AA72EAD00C255E759CBC5F26C08D4BFA93D2"
+    },
+    "blockadeEthWallet": {
+      "address": "0x4654af1e2cfee50fe2a15e9587fa8fb5c829e65e",
+      "privateKey": "f66c3f92399cdf41223cc8bd9005240224beef43de3fcc8a0a5e318fa775596b"
+    }
+  },
+  "sendgrid": {
+    "APIKey": "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"
+  },
+  "mail": {
+    "enabled": true
   }
 }

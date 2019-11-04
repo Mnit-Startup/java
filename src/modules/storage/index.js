@@ -4,3 +4,5 @@ const mod = require('./lib');
 exports.init = (done) => {
   done(null, mod);
 };
+
+exports.getRef = () => mod;

@@ -1,5 +1,11 @@
 FROM node:10.14.1
 
+# load args
+# possible values for NODE_ENV can be ["testing"]
+ARG NODE_ENV
+ARG MONGOMS_DISABLE_POSTINSTALL
+ARG HUSKY_SKIP_INSTALL
+
 # upto date apt list
 RUN apt-get update \
 # install packages

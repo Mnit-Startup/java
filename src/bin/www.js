@@ -54,3 +54,5 @@ app.on('ready', () => {
   server.listen(WWW_PORT);
   Logger.info('www - server was started successfully...');
 });
+
+module.exports = server;

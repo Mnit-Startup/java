@@ -1,56 +1,40 @@
 version: 2
 jobs:
-  install:
-    docker:
-      - image: circleci/node:10.14.1
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-      - run:
-          name: Install dependencies
-          command: npm install
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-      - persist_to_workspace:
-          root: /home/circleci/project
-          paths:
-            - node_modules/*
   lint:
     docker:
-      - image: circleci/node:10.14.1
+      - image: docker:stable-git
     steps:
       - checkout
-      - attach_workspace:
-          at: /home/circleci/project
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run:
-          name: Code linting
-          command: npm run lint
+          name: Build image from Dockerfile
+          command: docker build . --tag=blockade-api --build-arg NODE_ENV=testing --build-arg HUSKY_SKIP_INSTALL=true
       - run:
-          name: Markdown Linting
-          command: npm run lint-md
+          name: Running docker container
+          command: docker run blockade-api
+      - run:
+          name: Running linting for source code
+          command: docker run -it blockade-api npm "run" "lint"
+      - run:
+          name: Running linting for markdown files
+          command: docker run -it blockade-api npm "run" "lint-md"
   test:
     docker:
-      - image: circleci/node:10.14.1
+      - image: docker:stable-git
     steps:
       - checkout
-      - attach_workspace:
-          at: /home/circleci/project
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run:
-          name: Build project
-          command: npm run build -- --includeSpec
+          name: Build image from Dockerfile
+          command: docker build . --tag=blockade-api --build-arg NODE_ENV=testing --build-arg HUSKY_SKIP_INSTALL=true
+      - run:
+          name: Running automated test cases
+          command: docker run -it blockade-api npm "run" "test"
 workflows:
   version: 2
-  install_test_lint:
+  build_test_lint:
     jobs:
-      - install
-      - lint:
-          requires:
-            - install
-      - test:
-          requires:
-            - install
+      - lint
+      - test
