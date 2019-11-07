@@ -1,3 +1,5 @@
+/* eslint-disable func-names */
+const {before, after} = require('mocha');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const async = require('async');
@@ -5,8 +7,8 @@ const async = require('async');
 const config = require('./mock-config');
 const mongod = require('./mongod');
 
-const {Logger} = require('../helpers');
-const modules = require('../modules');
+const {Logger} = require('../src/helpers');
+const modules = require('../src/modules');
 
 // configure chai to use http
 chai.use(chaiHttp);
@@ -45,7 +47,7 @@ before('tester - initialization', function (cb) {
       Logger.info(' stage: spin up server');
       Logger.info('tester.init - waiting for server to get ready...');
       // eslint-disable-next-line global-require
-      const server = require('../bin/www');
+      const server = require('../src/bin/www');
       // add on listen handler
       server.on('listening', function () {
         Logger.info('tester.init - server init completed...');

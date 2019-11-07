@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node dist/bin/www",
     "build": "gulp build",
-    "test": "mocha \"./src/**/*.spec.js\"",
+    "test": "mocha \"./test/**/*.spec.js\"",
     "test-dist": "mocha \"./dist/**/*.spec.js\"",
     "serve": "gulp serve",
     "serve-runner": "concurrently",

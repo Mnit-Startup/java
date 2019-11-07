@@ -11,6 +11,7 @@ const schema = new mongoose.Schema({
   taxable: Boolean,
   image: String,
   active: Boolean,
+  tax: String,
 }, {
   timestamps: {
     createdAt: 'created_at',

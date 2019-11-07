@@ -7,6 +7,8 @@
   "store_profile",
   "store_identifier",
   "image",
+  "tax",
+  "account_id",
   "created_at",
   "updated_at"
 ]

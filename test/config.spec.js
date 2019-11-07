@@ -1,7 +1,7 @@
 const {expect} = require('chai');
 const {describe} = require('mocha');
 
-const {bootstrap} = require('./test/tester');
+const {bootstrap} = require('./tester');
 
 const Config = require('./config');
 

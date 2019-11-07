@@ -46,4 +46,18 @@ module.exports = checkSchema({
       errorMessage: (value, {req}) => req.__('invalid param'),
     },
   },
+  tax: {
+    in: 'body',
+    trim: true,
+    isEmpty: {
+      negated: true,
+      errorMessage: (value, {req}) => req.__('VAL_ERRORS.MISSING_TAX_RATE'),
+    },
+    isFloat: {
+      options: [{
+        min: 0,
+      }],
+      errorMessage: (value, {req}) => req.__('VAL_ERRORS.INVALID_TAX_RATE'),
+    },
+  },
 });
