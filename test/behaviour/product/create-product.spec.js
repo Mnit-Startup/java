@@ -59,7 +59,7 @@ describe('merchant should be able to exercise tax percentage control on each ind
       expect(res.body.errors.find(err => err.param === 'tax')).to.exist;
     });
 
-    it('When creating a product, should conclude with created store if tax is Zero', async () => {
+    it('When creating a product, should conclude with created product if tax is Zero', async () => {
       const merchantId = dummyData.merchants[0]._id;
       const storeId = dummyData.stores[0]._id;
       const res = await ctx.requester
@@ -70,6 +70,8 @@ describe('merchant should be able to exercise tax percentage control on each ind
       expect(res.body).to.have.all.keys(['id', 'name', 'price', 'sku_number',
         'taxable', 'active', 'tax', 'created_at', 'updated_at']);
       expect(res.body.id).to.be.a('string');
+      expect(res.body.tax).to.be.a('number');
+      expect(res.body.price).to.be.a('number');
       expect(res.body.name).to.be.equal(productZeroTax.name);
       expect(res.body.price).to.be.equal(productZeroTax.price);
       expect(res.body.sku_number).to.be.equal(productZeroTax.sku_number);
@@ -80,7 +82,7 @@ describe('merchant should be able to exercise tax percentage control on each ind
       expect(res.body.updated_at).to.be.a('string');
     });
 
-    it('When creating a product, should conclude with store, if tax is valid positive float type', async () => {
+    it('When creating a product, should conclude with product, if tax is valid positive float type', async () => {
       const merchantId = dummyData.merchants[0]._id;
       const storeId = dummyData.stores[0]._id;
       const res = await ctx.requester
@@ -91,6 +93,8 @@ describe('merchant should be able to exercise tax percentage control on each ind
       expect(res.body).to.have.all.keys(['id', 'name', 'price', 'sku_number',
         'taxable', 'active', 'tax', 'created_at', 'updated_at']);
       expect(res.body.id).to.be.a('string');
+      expect(res.body.tax).to.be.a('number');
+      expect(res.body.price).to.be.a('number');
       expect(res.body.name).to.be.equal(productValidTax.name);
       expect(res.body.price).to.be.equal(productValidTax.price);
       expect(res.body.sku_number).to.be.equal(productValidTax.sku_number);

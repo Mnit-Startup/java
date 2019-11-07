@@ -66,6 +66,7 @@ describe('merchant should be able to specify tax percentage when creating a stor
         'merchant_id_ein', 'store_identifier', 'tax', 'account_id', 'created_at', 'updated_at']);
       expect(res.body.id).to.be.a('string');
       expect(res.body.account_id).to.be.a('string');
+      expect(res.body.tax).to.be.a('number');
       expect(res.body.name).to.be.equal(storeZeroTax.name);
       expect(res.body.contact.phone).to.be.equal(storeZeroTax.phone);
       expect(res.body.contact.email).to.be.equal(storeZeroTax.email);
@@ -74,6 +75,7 @@ describe('merchant should be able to specify tax percentage when creating a stor
       expect(res.body.address.state).to.be.equal(storeZeroTax.state);
       expect(res.body.address.zipcode).to.be.equal(storeZeroTax.zipcode);
       expect(res.body.merchant_id_ein).to.be.equal(storeZeroTax.merchant_id_ein);
+      expect(res.body.tax).to.be.equal(storeZeroTax.tax);
       expect(res.body.store_identifier).to.be.equal(storeZeroTax.store_identifier);
       expect(res.body.store_identifier).to.be.equal(storeZeroTax.store_identifier);
       expect(res.body.created_at).to.be.a('string');
@@ -91,6 +93,7 @@ describe('merchant should be able to specify tax percentage when creating a stor
         'merchant_id_ein', 'store_identifier', 'tax', 'account_id', 'created_at', 'updated_at']);
       expect(res.body.id).to.be.a('string');
       expect(res.body.account_id).to.be.a('string');
+      expect(res.body.tax).to.be.a('number');
       expect(res.body.name).to.be.equal(storeValidTax.name);
       expect(res.body.contact.phone).to.be.equal(storeValidTax.phone);
       expect(res.body.contact.email).to.be.equal(storeValidTax.email);
@@ -101,6 +104,7 @@ describe('merchant should be able to specify tax percentage when creating a stor
       expect(res.body.merchant_id_ein).to.be.equal(storeValidTax.merchant_id_ein);
       expect(res.body.store_identifier).to.be.equal(storeValidTax.store_identifier);
       expect(res.body.store_identifier).to.be.equal(storeValidTax.store_identifier);
+      expect(res.body.tax).to.be.equal(storeValidTax.tax);
       expect(res.body.created_at).to.be.a('string');
       expect(res.body.updated_at).to.be.a('string');
     });

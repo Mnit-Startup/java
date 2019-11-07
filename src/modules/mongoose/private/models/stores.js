@@ -18,7 +18,7 @@ const schema = new mongoose.Schema({
   store_identifier: String,
   account_id: String,
   image: String,
-  tax: String,
+  tax: Number,
 }, {
   timestamps: {
     createdAt: 'created_at',

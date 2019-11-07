@@ -16,6 +16,12 @@ module.exports = checkSchema({
       negated: true,
       errorMessage: (value, {req}) => req.__('invalid param'),
     },
+    isFloat: {
+      options: [{
+        min: 0,
+      }],
+      errorMessage: (value, {req}) => req.__('invalid param'),
+    },
   },
   sku_number: {
     in: 'body',

@@ -14,7 +14,7 @@ module.exports = {
     sku_number: 'test sku number',
     taxable: true,
     active: true,
-    tax: '-10',
+    tax: -10,
   },
   productInvalidTax: {
     id: '5dc2cc736349d55037421402',
@@ -28,19 +28,19 @@ module.exports = {
   productZeroTax: {
     id: '5dc2cc736349d55037421402',
     name: 'test product',
-    price: '10',
+    price: 10,
     sku_number: 'test sku number',
     taxable: true,
     active: true,
-    tax: '0',
+    tax: 0,
   },
   productValidTax: {
     id: '5dc2cc736349d55037421402',
     name: 'test product',
-    price: '10',
+    price: 10,
     sku_number: 'test sku number',
     taxable: true,
     active: true,
-    tax: '10',
+    tax: 10,
   },
 };

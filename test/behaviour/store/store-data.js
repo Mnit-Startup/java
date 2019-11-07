@@ -44,7 +44,7 @@ module.exports = {
     zipcode: '1111',
     merchant_id_ein: 'test mid',
     store_identifier: 'test store identifier',
-    tax: '0',
+    tax: 0,
   },
   storeValidTax: {
     name: 'test_store',
@@ -56,6 +56,6 @@ module.exports = {
     zipcode: '1111',
     merchant_id_ein: 'test mid',
     store_identifier: 'test store identifier',
-    tax: '10',
+    tax: 10,
   },
 };
