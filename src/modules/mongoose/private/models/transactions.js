@@ -13,13 +13,20 @@ const schema = new mongoose.Schema({
   },
   paid_on: Date,
   payment_info: mongoose.Schema.Types.Mixed,
-  cart_items: [{
-    product: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product',
-    },
-    quantity: Number,
-  }],
+  cart: {
+    products: [{
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product',
+      },
+      name: String,
+      price: Number,
+      taxable: Boolean,
+      tax: Number,
+      quantity: Number,
+      _id: false,
+    }],
+  },
 }, {
   timestamps: {
     createdAt: 'created_at',

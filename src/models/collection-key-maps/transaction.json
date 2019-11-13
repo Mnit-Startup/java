@@ -5,6 +5,7 @@
   "payee",
   "paid_on",
   "payment_status",
+  "cart",
   "created_at",
   "updated_at"
 ]

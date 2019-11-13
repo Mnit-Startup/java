@@ -23,6 +23,7 @@ exports.createStoreTransaction = [
     new Promise(async (resolve, reject) => {
       try {
         let total = 0;
+        const cart_products = [];
         // get all the id of products in an array
         const productIds = _.map(cart_items, cart_item => cart_item.product);
 
@@ -40,16 +41,30 @@ exports.createStoreTransaction = [
           }
           const index = _.findIndex(cart_items, cart_item => cart_item.product === product.id);
           if (index !== -1) {
-            total += cart_items[index].quantity * product.price;
+            let productWithQuantityPrice = cart_items[index].quantity * product.price;
+            if (product.taxable) {
+              productWithQuantityPrice += (cart_items[index].quantity * product.price * product.tax) / 100;
+            }
+            total += productWithQuantityPrice;
           }
+          cart_products.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            taxable: product.taxable,
+            tax: product.tax,
+            quantity: cart_items[index].quantity,
+          });
         });
 
         // create transaction
         const transaction = await res.locals.db.transactions.create({
           store: req.store.id,
-          amount: total,
+          amount: Number((total).toFixed(2)),
           payment_status: PaymentStatus.PENDING_PAYMENT,
-          cart_items,
+          cart: {
+            products: cart_products,
+          },
         });
 
         // resolve
