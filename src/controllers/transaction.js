@@ -19,56 +19,69 @@ exports.createStoreTransaction = [
   // validation intercepter
   InputValidator(),
   (req, res, next) => {
-    const {cart_items} = req.body;
+    const {cart_items, amount} = req.body;
     new Promise(async (resolve, reject) => {
       try {
-        let total = 0;
-        const cart_products = [];
-        // get all the id of products in an array
-        const productIds = _.map(cart_items, cart_item => cart_item.product);
+        if (_.isNil(amount)) {
+          let total = 0;
+          const cart_products = [];
+          // get all the id of products in an array
+          const productIds = _.map(cart_items, cart_item => cart_item.product);
 
-        // query all the products from db using product ids array in single query
-        const products = await res.locals.db.products.find({
-          _id: {
-            $in: productIds,
-          },
-        });
-
-        // loop through and calculate total amount of transaction
-        _.forEach(products, (product) => {
-          if (!product.active) {
-            reject(Error.InvalidRequest(res.__('PRODUCT.NOT_ACTIVE')));
-          }
-          const index = _.findIndex(cart_items, cart_item => cart_item.product === product.id);
-          if (index !== -1) {
-            let productWithQuantityPrice = cart_items[index].quantity * product.price;
-            if (product.taxable) {
-              productWithQuantityPrice += (cart_items[index].quantity * product.price * product.tax) / 100;
-            }
-            total += productWithQuantityPrice;
-          }
-          cart_products.push({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            taxable: product.taxable,
-            tax: product.tax,
-            quantity: cart_items[index].quantity,
+          // query all the products from db using product ids array in single query
+          const products = await res.locals.db.products.find({
+            _id: {
+              $in: productIds,
+            },
           });
-        });
 
-        // create transaction
-        const transaction = await res.locals.db.transactions.create({
-          store: req.store.id,
-          amount: Number((total).toFixed(2)),
-          payment_status: PaymentStatus.PENDING_PAYMENT,
-          cart: {
-            products: cart_products,
-          },
-        });
+          // loop through and calculate total amount of transaction
+          _.forEach(products, (product) => {
+            if (!product.active) {
+              reject(Error.InvalidRequest(res.__('PRODUCT.NOT_ACTIVE')));
+            }
+            const index = _.findIndex(cart_items, cart_item => cart_item.product === product.id);
+            if (index !== -1) {
+              let productWithQuantityPrice = cart_items[index].quantity * product.price;
+              if (product.taxable) {
+                productWithQuantityPrice += (cart_items[index].quantity * product.price * product.tax) / 100;
+              }
+              total += productWithQuantityPrice;
+            }
+            cart_products.push({
+              id: product.id,
+              name: product.name,
+              price: product.price,
+              taxable: product.taxable,
+              tax: product.tax,
+              quantity: cart_items[index].quantity,
+            });
+          });
 
-        // resolve
-        resolve(_.pick(transaction.toJSON(), CollectionKeyMaps.Transaction));
+          // create transaction
+          const transaction = await res.locals.db.transactions.create({
+            store: req.store.id,
+            amount: Number((total).toFixed(2)),
+            payment_status: PaymentStatus.PENDING_PAYMENT,
+            cart: {
+              products: cart_products,
+            },
+          });
+          // resolve
+          resolve(_.pick(transaction.toJSON(), CollectionKeyMaps.Transaction));
+        } else {
+          // create transaction
+          const transaction = await res.locals.db.transactions.create({
+            store: req.store.id,
+            amount,
+            payment_status: PaymentStatus.PENDING_PAYMENT,
+            cart: {
+              products: [],
+            },
+          });
+          // resolve
+          resolve(_.pick(transaction.toJSON(), CollectionKeyMaps.Transaction));
+        }
       } catch (e) {
         reject(e);
       }

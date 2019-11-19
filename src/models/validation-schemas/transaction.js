@@ -29,4 +29,14 @@ module.exports = checkSchema({
       errorMessage: (value, {req}) => req.__('VAL_ERRORS.INVALID_QUANTITY'),
     },
   },
+  amount: {
+    in: 'body',
+    optional: true,
+    isFloat: {
+      options: [{
+        min: 0,
+      }],
+      errorMessage: (value, {req}) => req.__('VAL_ERRORS.INVALID_AMOUNT'),
+    },
+  },
 });

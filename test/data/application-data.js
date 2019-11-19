@@ -19,7 +19,7 @@ module.exports = {
       role: 'merchant',
       created_at: Date('2019-08-05T05:27:52.916Z'),
       updated_at: Date('2019-08-05T05:27:52.916Z'),
-      token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkNDdiZTU4NTUxN2RiMDczYzEwMzBhNSIsInJvbGUiOiJtZXJjaGFudCIsImlhdCI6MTU3MzYzNzkyNywiZXhwIjoxNTc0MjQ2MzI3fQ.ZcsNz1BJkLsWRTzi1_KMM8P9ZRfyf6PVWXVDabVuNLk',
+      token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkNDdiZTU4NTUxN2RiMDczYzEwMzBhNSIsInJvbGUiOiJtZXJjaGFudCIsImlhdCI6MTU3NDE1NzA4NywiZXhwIjoxNTc0NzY1NDg3fQ.vcPSzAGMR6lPzufF-O2rl0Lq4dzoSTh2Md6XFuZ-4ow',
     },
   ],
   stores: [
@@ -59,7 +59,7 @@ module.exports = {
         active: true,
         created_at: Date('2019-11-08T13:03:25.798Z'),
         updated_at: Date('2019-11-08T13:03:25.798Z'),
-        token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYzU2NzlkMDA4NGZmODgyYzE3NTZmNCIsInJvbGUiOiJjYXNoaWVyIiwiaWF0IjoxNTczMjE4NDYyLCJleHAiOjE1NzM4MjY4NjJ9.n2IwRHeU4SKh1JFkWFXtaIvH_QKIYHrEZIDomKiHgIU',
+        token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYzU2NzlkMDA4NGZmODgyYzE3NTZmNCIsInJvbGUiOiJjYXNoaWVyIiwiaWF0IjoxNTc0MTU4NDA1LCJleHAiOjE1NzQ3NjY4MDV9.DejFT7IEgUmS6mFaanCTJMVM9YNy_QhKPD0tTKxkWwk',
       },
     ],
   },

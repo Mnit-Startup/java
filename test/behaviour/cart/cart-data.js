@@ -47,4 +47,10 @@ module.exports = {
       },
     ],
   },
+  cartAmount: {
+    amount: 10,
+  },
+  cartInvalidAmount: {
+    amount: 'ash',
+  },
 };

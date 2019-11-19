@@ -8,6 +8,7 @@ const {beforeEach, describe} = require('mocha');
 const applicationData = require('../../data/application-data');
 const {
   cart, cartMissingProduct, cartMissingQuantity, cartInactiveProduct,
+  cartInvalidAmount, cartAmount
 } = require('./cart-data');
 const tester = require('../../tester');
 
@@ -108,6 +109,54 @@ describe('system should be able to calculate total cart value based on tax infor
       expect(res.body.cart.products[1].name).to.be.eql(productB.name);
       expect(res.body.cart.products[1].price).to.be.eql(productB.price);
       expect(res.body.cart.products[1].tax).to.be.eql(productB.tax);
+
+      expect(res.body.created_at).to.be.a('string');
+      expect(res.body.updated_at).to.be.a('string');
+    });
+  });
+
+  describe('when amount is passed, transaction should be created with given amount ignoring cart items', () => {
+    it('should conclude with error, if invalid amount is passed in req body', async () => {
+      const merchantId = applicationData.merchants[0]._id;
+      const storeId = applicationData.stores[0]._id;
+      const res = await ctx.requester
+        .post(`/account/${merchantId}/store/${storeId}/transaction`)
+        .set('authorization', token)
+        .send(cartInvalidAmount);
+      expect(res.statusCode).equal(400);
+      expect(res.body.errors).to.be.instanceOf(Array);
+      expect(res.body.errors).to.have.lengthOf(1);
+      expect(res.body.errors.find(err => err.param === 'amount')).to.exist;
+    });
+
+    it('should conclude with transaction, if valid amount is passed in req body', async () => {
+      // pre condition
+      expect(cartAmount.amount).to.be.eql(10);
+
+      // test execution
+      const merchantId = applicationData.merchants[0]._id;
+      const storeId = applicationData.stores[0]._id;
+      const res = await ctx.requester
+        .post(`/account/${merchantId}/store/${storeId}/transaction`)
+        .set('authorization', token)
+        .send(cartAmount);
+
+      // post condition
+      expect(res.statusCode).equal(200);
+      expect(res.body).to.have.all.keys(['id', 'amount', 'store', 'payment_status',
+        'cart', 'created_at', 'updated_at']);
+      expect(res.body.id).to.be.a('string');
+      expect(res.body.amount).to.be.a('number');
+      expect(res.body.store).to.be.a('string');
+      // check status when a transaction is created
+      expect(res.body.payment_status).to.be.eql('pending_payment');
+
+      // check final amount
+      expect(res.body.amount).to.be.eql(10);
+
+      // check cart details for product A
+      expect(res.body.cart.products).to.be.instanceOf(Array);
+      expect(res.body.cart.products).to.have.lengthOf(0);
 
       expect(res.body.created_at).to.be.a('string');
       expect(res.body.updated_at).to.be.a('string');
