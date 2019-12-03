@@ -19,12 +19,33 @@ module.exports = {
       role: 'merchant',
       created_at: Date('2019-08-05T05:27:52.916Z'),
       updated_at: Date('2019-08-05T05:27:52.916Z'),
-      token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkNDdiZTU4NTUxN2RiMDczYzEwMzBhNSIsInJvbGUiOiJtZXJjaGFudCIsImlhdCI6MTU3NDE1NzA4NywiZXhwIjoxNTc0NzY1NDg3fQ.vcPSzAGMR6lPzufF-O2rl0Lq4dzoSTh2Md6XFuZ-4ow',
+      token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkNDdiZTU4NTUxN2RiMDczYzEwMzBhNSIsInJvbGUiOiJtZXJjaGFudCIsImlhdCI6MTU3NTM2OTUyNCwiZXhwIjoxNTc1OTc3OTI0fQ._pLQYmyz8AQMy3G4FW4DWWy5mGNH3huZcd_b44TIpl4',
+    },
+  ],
+  consumers: [
+    {
+      _id: ObjectId('5d9b0f785084bc1c7ac48b2a'),
+      blockchain: {
+        wallet: {
+          add: '0xb7060d9470b15e31850e99997c116a87288f1314',
+          pub: 'd010ed2d006dab0a034ba86adfa9ad466e6f8b6167e7843c42a1c9347a46e751de198de8305c600730a87b5422e1dcde86810ba2fd58400501f65f6253930ba3',
+          enc: 'bc974fdaab04284c3ba7bba442d49d07cf783068165c1db1668ff713305308ec4bade327257e345f80af11e5011edef6e3ef88bb405f4f2790a9749c76427b114a54f140abda0c407c4b6a4885aa410c',
+        },
+      },
+      email: 'consumer@kadima.com',
+      password: {
+        hash: 'cb14869a261901f649c8b97024eb691abbd496f705e766249252b784db2c5dae55bdd5d87ad2f5c31a431ecec9096c8cf5d3c175912e4e5e121d1a7a944d9f1a',
+        salt: 'eb4fd620-e8ea-11e9-aff3-6f6aff08013c',
+      },
+      role: 'consumer',
+      created_at: Date('2019-10-07T10:12:08.064Z'),
+      updated_at: Date('2019-10-07T10:12:08.064Z'),
+      token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkOWIwZjc4NTA4NGJjMWM3YWM0OGIyYSIsInJvbGUiOiJjb25zdW1lciIsImlhdCI6MTU3NTM2OTYyMCwiZXhwIjoxNTc1OTc4MDIwfQ.SZNzDX4ouDVdje03l4LJLWIDBcdS6cXeHWwTZzpfUfI',
     },
   ],
   stores: [
     {
-      id: '5dc2c27c6349d55037421401',
+      _id: ObjectId('5dc2c27c6349d55037421401'),
       name: 'test_store',
       contact: {
         phone: '1111',
@@ -59,7 +80,7 @@ module.exports = {
         active: true,
         created_at: Date('2019-11-08T13:03:25.798Z'),
         updated_at: Date('2019-11-08T13:03:25.798Z'),
-        token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYzU2NzlkMDA4NGZmODgyYzE3NTZmNCIsInJvbGUiOiJjYXNoaWVyIiwiaWF0IjoxNTc0MTU4NDA1LCJleHAiOjE1NzQ3NjY4MDV9.DejFT7IEgUmS6mFaanCTJMVM9YNy_QhKPD0tTKxkWwk',
+        token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYzU2NzlkMDA4NGZmODgyYzE3NTZmNCIsInJvbGUiOiJjYXNoaWVyIiwiaWF0IjoxNTc1MzY5NDQ1LCJleHAiOjE1NzU5Nzc4NDV9.wsCiUWeXC2R-BCM1e0HGhOC_Mxne4R6TCU-29LXEzM4',
       },
     ],
   },
@@ -107,6 +128,139 @@ module.exports = {
       tax: 10,
       created_at: '2019-11-08T12:20:46.107Z',
       updated_at: '2019-11-08T12:20:46.107Z',
+    },
+  ],
+  transactions: [
+    // 3 transactions covering all 3 payemnt statuses:
+    // pendig, processing, paid
+    // pending_payment transaction
+    {
+      _id: ObjectId('5dd77aaafeb715e3a56921de'),
+      amount: 21,
+      store: ObjectId('5dc2c27c6349d55037421401'),
+      payment_status: 'pending_payment',
+      cart: {
+        products: [
+          {
+            id: '5dc55bca49901981f2097193',
+            name: 'test product',
+            price: 10,
+            taxable: true,
+            tax: 10,
+            quantity: 1,
+          },
+          {
+            id: '5dc55bf249901981f2097194',
+            name: 'Phone Cover',
+            price: 10,
+            taxable: false,
+            tax: 10,
+            quantity: 1,
+          },
+        ],
+      },
+      created_at: '2019-11-22T06:05:30.908Z',
+      updated_at: '2019-11-22T06:05:30.908Z',
+    },
+    // payment under process transaction
+    {
+      _id: ObjectId('5dd77c2efeb715e3a56921e0'),
+      amount: 32,
+      store: ObjectId('5dc2c27c6349d55037421401'),
+      payment_status: 'processing',
+      cart: {
+        products: [
+          {
+            id: '5dc55bca49901981f2097193',
+            name: 'test product',
+            price: 10,
+            taxable: true,
+            tax: 10,
+            quantity: 2,
+          },
+          {
+            id: '5dc55bf249901981f2097194',
+            name: 'Phone Cover',
+            price: 10,
+            taxable: false,
+            tax: 10,
+            quantity: 1,
+          },
+        ],
+      },
+      created_at: '2019-11-22T06:11:58.435Z',
+      updated_at: '2019-11-22T06:11:58.435Z',
+    },
+    // paid payment status transaction
+    {
+      _id: ObjectId('5dd77b37feb715e3a56921df'),
+      amount: 42,
+      store: ObjectId('5dc2c27c6349d55037421401'),
+      payment_status: 'paid',
+      cart: {
+        products: [
+          {
+            id: '5dc55bca49901981f2097193',
+            name: 'test product',
+            price: 10,
+            taxable: true,
+            tax: 10,
+            quantity: 2,
+          },
+          {
+            id: '5dc55bf249901981f2097194',
+            name: 'Phone Cover',
+            price: 10,
+            taxable: false,
+            tax: 10,
+            quantity: 2,
+          },
+        ],
+      },
+      receipt: ObjectId('5ddbce88705d1f4808582866'),
+      created_at: '2019-11-22T06:07:51.945Z',
+      updated_at: '2019-11-22T06:07:51.945Z',
+    },
+  ],
+  receipts: [
+    {
+      _id: ObjectId('5ddbce88705d1f4808582866'),
+      store: {
+        id: ObjectId('5dc2c27c6349d55037421401'),
+        name: 'Amazon',
+        address: 'test address',
+        city: 'test city',
+        state: 'test state',
+        zipcode: '1111',
+        logo: 'https://s3.amazonaws.com/blockade.merchant.assets/photo-473cb8f0-0b81-11ea-83f8-0792c1923834.jpg',
+      },
+      cart: {
+        products: [
+          {
+            id: ObjectId('5dc55bca49901981f2097193'),
+            name: 'test product',
+            price: 10,
+            taxable: true,
+            tax: 10,
+            quantity: 2,
+          },
+          {
+            id: ObjectId('5dc55bf249901981f2097194'),
+            name: 'Phone Cover',
+            price: 10,
+            taxable: false,
+            tax: 10,
+            quantity: 2,
+          },
+        ],
+      },
+      total: 42,
+      sub_total: 40,
+      tax: 2,
+      transaction: ObjectId('5dd77b37feb715e3a56921df'),
+      payment_mode: 'cash',
+      created_at: Date('2019-11-25T12:52:24.840Z'),
+      updated_at: Date('2019-11-25T12:52:24.840Z'),
     },
   ],
 };

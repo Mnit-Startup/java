@@ -1,13 +1,11 @@
 [
   "id",
-  "amount",
   "store",
-  "payee",
-  "paid_on",
-  "payment_status",
   "cart",
+  "tax",
+  "sub_total",
+  "total",
   "payment_mode",
-  "receipt",
   "created_at",
   "updated_at"
 ]
