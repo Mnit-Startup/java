@@ -6,6 +6,7 @@
     "taxable",
     "image",
     "active",
+    "tax",
     "created_at",
     "updated_at"
   ]

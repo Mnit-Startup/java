@@ -16,7 +16,8 @@
     "template": {
       "en": {
         "insufficientKadimaInSystemWallet": "d-7533a3e90f8f43a3b548c1ff1d463c9e",
-        "insufficientEtherInSystemWallet": "d-a946b530b8db4416a8f89e39d33bc70e"
+        "insufficientEtherInSystemWallet": "d-a946b530b8db4416a8f89e39d33bc70e",
+        "transactionEmailReceipt": "d-5955e0cd1b514bbaa0c93aebf5078404"
       }
     }
   },

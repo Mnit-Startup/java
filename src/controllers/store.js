@@ -46,6 +46,7 @@ exports.create = [
           store_identifier: params.store_identifier.toLowerCase(),
           account_id: acc._id,
           image: params.image,
+          tax: params.tax,
         });
         return resolve(_.pick(store.toJSON(), CollectionKeyMaps.Store));
       } catch (e) {
@@ -128,6 +129,7 @@ exports.createProduct = [
           taxable: params.taxable,
           image: params.image,
           active: params.active,
+          tax: params.tax,
         });
         return resolve(_.pick(product.toJSON(), CollectionKeyMaps.Product));
       } catch (e) {

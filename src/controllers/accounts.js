@@ -144,7 +144,7 @@ exports.employeeLogin = [
     new Promise(async (resolve, reject) => {
       try {
         // query store using store identifier
-        const store = await res.locals.db.stores.findOne({store_identifier: params.store_identifier});
+        const store = await res.locals.db.stores.findOne({store_identifier: params.store_identifier.toLowerCase()});
 
         // reject if no such store
         if (!store) {

@@ -16,6 +16,12 @@ module.exports = checkSchema({
       negated: true,
       errorMessage: (value, {req}) => req.__('invalid param'),
     },
+    isFloat: {
+      options: [{
+        min: 0,
+      }],
+      errorMessage: (value, {req}) => req.__('invalid param'),
+    },
   },
   sku_number: {
     in: 'body',
@@ -44,6 +50,20 @@ module.exports = checkSchema({
     isEmpty: {
       negated: true,
       errorMessage: (value, {req}) => req.__('invalid param'),
+    },
+  },
+  tax: {
+    in: 'body',
+    trim: true,
+    isEmpty: {
+      negated: true,
+      errorMessage: (value, {req}) => req.__('VAL_ERRORS.MISSING_TAX_RATE'),
+    },
+    isFloat: {
+      options: [{
+        min: 0,
+      }],
+      errorMessage: (value, {req}) => req.__('VAL_ERRORS.INVALID_TAX_RATE'),
     },
   },
 });

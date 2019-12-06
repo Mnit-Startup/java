@@ -6,6 +6,9 @@ const {AccessControl} = require('../interceptors');
 
 const router = express.Router({});
 
+// endpoint to send email for a paid cash transaction
+router.post('/:transactionId/receipt/:receiptId/email', transactionController.emailReceipt);
+
 router.use(AccessControl());
 
 router.get('/:transactionId', transactionController.getTransactionDetail);

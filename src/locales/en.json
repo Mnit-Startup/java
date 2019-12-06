@@ -38,7 +38,10 @@
     "EMP_ACC_LOGIN_MISSING_STORE_IDENTIFIER": "Please specify a store id to continue",
     "EMP_ACC_LOGIN_MISSING_PIN": "Please specify a pin to continue",
     "INVALID_QUANTITY": "Please specify a valid quantiy greater than 0 to continue",
-    "INVALID_PRODUCT_ID": "Request could not be resolved as provided product ID is invalid"
+    "INVALID_PRODUCT_ID": "Request could not be resolved as provided product ID is invalid",
+    "MISSING_TAX_RATE": "Please specify a store tax rate to continue",
+    "INVALID_TAX_RATE": "Please specify a valid store tax rate to continue",
+    "INVALID_PAYMENT_MODE": "Please specify a valid mode of payment for transaction to continue"
   },
   "PAYMENT": {
     "TRANSACTION_PAID": "The transaction has been paid. Please make sure you are paying for the correct transaction",
@@ -47,7 +50,8 @@
     "INSUFFICIENT_ETH_IN_SYSTEM_WALLET": "The system wallet does not have enough ether to process the request",
     "INSUFFICIENT_KADIMA_IN_CONSUMER_WALLET": "The consumer wallet does not have enough kadima to process the request, Please request him to transfer at least %s Kadima to his wallet %s to continue.",
     "INSUFFICIENT_KADIMA_IN_SYSTEM_WALLET": "The system wallet does not have enough kadima to process the request",
-    "TRANSACTION_IN_PROCESS": "The payment for the transaction is already in progress"
+    "TRANSACTION_IN_PROCESS": "The payment for the transaction is already in progress",
+    "TRANSACTION_NOT_PAID": "The transaction has not been paid. Please make sure the transaction is paid to send email invoice"
   },
   "PRODUCT": {
     "NOT_ACTIVE": "Please select a valid active product to continue"

@@ -6,11 +6,12 @@ const schema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Store',
   },
-  price: String,
+  price: Number,
   sku_number: String,
   taxable: Boolean,
   image: String,
   active: Boolean,
+  tax: Number,
 }, {
   timestamps: {
     createdAt: 'created_at',
