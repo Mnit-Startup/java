@@ -184,7 +184,7 @@ exports.getConsumerTransactions = [
 ];
 
 /* Function to send email using receipt of a paid transaction */
-async function sendEmail(receipt, receiverEmail, locale) {
+async function sendEmail(transactionId, receipt, receiverEmail, locale) {
   /* Email Data:
           1. Date
           2. Merchant Name
@@ -195,6 +195,7 @@ async function sendEmail(receipt, receiverEmail, locale) {
           7. Transaction id
            */
   const receiptDetails = receipt.toJSON();
+  receiptDetails.transaction = transactionId;
   // calcaute amount each item adds in cart
   _.forEach(receiptDetails.cart.products, (item) => {
     item.cost = item.price * item.quantity;
@@ -316,7 +317,7 @@ exports.payTransaction = [
         // consumer account is present in db
         // fire an email with transaction details to his account
         if (mode_of_payment.toLowerCase() === PaymentMode.KADIMA) {
-          await sendEmail(receipt, acc.email, req.getLocale());
+          await sendEmail(updatedTransaction.id, receipt, acc.email, req.getLocale());
         }
         return resolve(_.pick(updatedTransaction.toJSON(), CollectionKeyMaps.Transaction));
       } catch (e) {
@@ -340,6 +341,7 @@ exports.emailReceipt = [
   InputValidator(),
   (req, res, next) => {
     const {email} = req.body;
+    const {transactionId} = req.params;
     new Promise(async (resolve, reject) => {
       try {
         // locate the transaction in db
@@ -350,7 +352,7 @@ exports.emailReceipt = [
         if (!receipt) {
           return reject(Error.NotFound());
         }
-        await sendEmail(receipt, email, req.getLocale());
+        await sendEmail(transactionId, receipt, email, req.getLocale());
         return resolve(_.pick(receipt.toJSON(), CollectionKeyMaps.Receipt));
       } catch (e) {
         // if error reject promise and return
