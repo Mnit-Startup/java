@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node dist/bin/www",
+    "start-worker": "node dist/worker",
     "build": "gulp build",
     "test": "mocha \"./test/**/*.spec.js\"",
     "test-dist": "mocha \"./dist/**/*.spec.js\"",
@@ -31,6 +32,7 @@
   "dependencies": {
     "@sendgrid/mail": "^6.3.1",
     "@sentry/node": "^4.1.1",
+    "amqplib": "^0.5.5",
     "async": "^2.6.1",
     "aws-sdk": "^2.498.0",
     "babel-core": "^6.26.3",

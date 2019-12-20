@@ -25,6 +25,7 @@ const SERVE_IGNORE_GLOBS = [];
 // scripts that would be invoked at each serve cycle
 const SERVE_SCRIPTS = [
   'node {dir}/bin/www',
+  'node {dir}/worker',
 ];
 
 // tasks for each serve cycle

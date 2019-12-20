@@ -3,6 +3,7 @@ const {before, after} = require('mocha');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const async = require('async');
+const sinon = require('sinon');
 
 const config = require('./mock-config');
 const mongod = require('./mongod');
@@ -46,6 +47,10 @@ before('tester - initialization', function (cb) {
       // stage: spin up server
       Logger.info(' stage: spin up server');
       Logger.info('tester.init - waiting for server to get ready...');
+      const workerStub = sinon.stub(modules.Worker);
+      workerStub.init = (param, callback) => {
+        callback(null, {});
+      };
       // eslint-disable-next-line global-require
       const server = require('../src/bin/www');
       // add on listen handler

@@ -1,14 +1,16 @@
 /* eslint-disable func-names, prefer-arrow-callback */
 const async = require('async');
+const _ = require('lodash');
 
 const {Logger} = require('./helpers');
 
 function registerEntryWithLoader(loader, entry) {
   loader.push(function (done) {
-    const {module, namespace} = this;
+    const {module, namespace, params} = this;
     Logger.info(`di - attempting to initialize module for namespace - ${namespace}`);
+    const initializer = params ? _.bind(module.init, null, ...params) : module.init;
     // init module
-    module.init((err, instance) => {
+    initializer((err, instance) => {
       if (err) return done(err);
       Logger.info(`di - module for namespace ${namespace} was initialized successfully...`);
       return done(null, {instance, namespace});
