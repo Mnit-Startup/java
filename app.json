@@ -1,16 +1,8 @@
 {
   "name": "blockade-api",
-  "addons": [
-    {
-      "plan": "cloudamqp",
-      "as": "CLOUDAMQP"
-    }
-  ],
+  "addons": [],
   "formation": {
     "web": {
-      "quantity": 1
-    },
-    "worker": {
       "quantity": 1
     }
   },
@@ -43,30 +35,6 @@
     },
     "INFURA_CHAIN_ID": {
       "required": false
-    },
-    "ACCOUNTS_JWT_KEY": {
-      "required": true
-    },
-    "BLOCKCHAIN_KADIMA_WALLET_ADD": {
-      "required": true
-    },
-    "BLOCKCHAIN_KADIMA_WALLET_KEY": {
-      "required": true
-    },
-    "BLOCKCHAIN_ETHER_WALLET_ADD": {
-      "required": true
-    },
-    "BLOCKCHAIN_ETHER_WALLET_KEY": {
-      "required": true
-    },
-    "AWS_ACCESS_KEY": {
-      "required": true
-    },
-    "AWS_ACCESS_SECRET": {
-      "required": true
-    },
-    "SENDGRID_API_KEY": {
-      "required": true
     }
   },
   "stack": "container"

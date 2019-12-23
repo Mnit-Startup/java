@@ -22,11 +22,6 @@ const APPS = [
     script: 'npm',
     args: 'start',
   },
-  {
-    name: 'Worker',
-    script: 'npm',
-    args: 'npm start-worker',
-  },
 ];
 
 // shared config - config shared across the apps

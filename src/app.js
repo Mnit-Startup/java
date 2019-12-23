@@ -12,7 +12,6 @@ const Modules = require('./modules');
 const {Sentry, Cors, i18n} = require('./core');
 const routes = require('./routes');
 const {Logger, Error} = require('./helpers');
-const {WorkerProcessTypes} = require('./models');
 
 // from modules
 const {DbUtils} = Modules.Db;
@@ -39,15 +38,6 @@ const moduleEntries = [
   {
     module: Modules.Storage,
     namespace: 'storage',
-  },
-  {
-    module: Modules.Worker,
-    namespace: 'worker',
-    params: [
-      [
-        WorkerProcessTypes.TransferKadima,
-      ],
-    ],
   },
 ];
 

@@ -52,8 +52,5 @@
         "secret": "AWS_ACCESS_SECRET"
       }
     }
-  },
-  "rabbitMQ": {
-    "url": "CLOUDAMQP_URL"
   }
 }
