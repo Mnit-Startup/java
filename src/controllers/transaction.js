@@ -14,6 +14,7 @@ const {
 } = require('../interceptors');
 const {Error} = require('../helpers');
 const Mail = require('../modules/mail/lib');
+const {Task} = require('../modules/worker');
 
 const TRANSACTION_EMAIL_RECEIPT = 'transactionEmailReceipt';
 const MAIL_ACCOUNTS_SENDER = 'accounts';
@@ -367,3 +368,26 @@ exports.emailReceipt = [
     });
   },
 ];
+
+
+exports.testQueue = async (req, res, next) => {
+  new Promise(async (resolve, reject) => {
+    try {
+      const task = new Task('transfer_kadima', {
+        from: 'from wallet',
+        to: 'to_wallet',
+        amount: 10,
+      });
+      await res.locals.worker.submitTask(task);
+      resolve();
+    } catch (e) {
+      reject(e);
+    }
+  }).asCallback((err, response) => {
+    if (err) {
+      next(err);
+    } else {
+      res.json(response);
+    }
+  });
+};

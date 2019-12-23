@@ -3,6 +3,7 @@ const {before, after} = require('mocha');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const async = require('async');
+const sinon = require('sinon');
 
 const config = require('./mock-config');
 const mongod = require('./mongod');
@@ -30,6 +31,10 @@ before('tester - initialization', function (cb) {
     (done) => {
       // stage: spin up local db
       Logger.info('tester.init - waiting for db to get ready...');
+      const workerStub = sinon.stub(modules.Worker);
+      workerStub.init = (param, callback) => {
+        callback(null, {});
+      };
       // get connection string will ensure server is up and runnuing
       mongod((err, mongo) => {
         if (err) {

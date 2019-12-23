@@ -21,5 +21,8 @@
   },
   "mail": {
     "enabled": false
+  },
+  "rabbitMQ": {
+    "url": "amqp://localhost"
   }
 }
