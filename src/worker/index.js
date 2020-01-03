@@ -29,6 +29,10 @@ const moduleEntries = [
     module: Modules.BlockchainWallet,
     namespace: 'blockchainWallet',
   },
+  {
+    module: Modules.Accounts,
+    namespace: 'accounts',
+  },
 ];
 
 function deserializeMessage(msg) {
@@ -52,6 +56,9 @@ amqplib.connect(RABBIT_MQ_URL)
     Logger.info('attempting to create channel');
     // create a channel
     const channel = await connection.createChannel();
+    // set max limit of task in a queue
+    // set to 1, so one blockchain transactions are carried sequentially
+    channel.prefetch(1);
     Logger.info('server worker - channel was created successfully, attempting to initialise modules');
     const modules = await DI(moduleEntries);
     Logger.info('server modules were initialised successfully');

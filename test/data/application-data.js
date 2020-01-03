@@ -19,7 +19,7 @@ module.exports = {
       role: 'merchant',
       created_at: Date('2019-08-05T05:27:52.916Z'),
       updated_at: Date('2019-08-05T05:27:52.916Z'),
-      token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkNDdiZTU4NTUxN2RiMDczYzEwMzBhNSIsInJvbGUiOiJtZXJjaGFudCIsImlhdCI6MTU3NzA5Mzc2NywiZXhwIjoxNTc3NzAyMTY3fQ.ZsaWQL39VhF4-FqYWreMg5lmqE2RLbdSYzuhE36zoAM',
+      token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkNDdiZTU4NTUxN2RiMDczYzEwMzBhNSIsInJvbGUiOiJtZXJjaGFudCIsImlhdCI6MTU3Nzk1MDEwOCwiZXhwIjoxNTc4NTU4NTA4fQ.mUZt9AnAFTFgp4Tk6YLtIpYm-3oCO03jdEC58uIedro',
     },
   ],
   consumers: [
@@ -40,7 +40,7 @@ module.exports = {
       role: 'consumer',
       created_at: Date('2019-10-07T10:12:08.064Z'),
       updated_at: Date('2019-10-07T10:12:08.064Z'),
-      token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkOWIwZjc4NTA4NGJjMWM3YWM0OGIyYSIsInJvbGUiOiJjb25zdW1lciIsImlhdCI6MTU3NzA5MzczNCwiZXhwIjoxNTc3NzAyMTM0fQ.fPdFiY0I_-eAMC2a2iAiMuLZR6JO0m_P5pw19RxxR7U',
+      token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkOWIwZjc4NTA4NGJjMWM3YWM0OGIyYSIsInJvbGUiOiJjb25zdW1lciIsImlhdCI6MTU3Nzk0OTQ2MiwiZXhwIjoxNTc4NTU3ODYyfQ.SBV1n1f8oUqRE7fi_5ETS6t0S8VriVvPjtvmD3DL3aM',
     },
   ],
   stores: [
@@ -80,7 +80,7 @@ module.exports = {
         active: true,
         created_at: Date('2019-11-08T13:03:25.798Z'),
         updated_at: Date('2019-11-08T13:03:25.798Z'),
-        token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYzU2NzlkMDA4NGZmODgyYzE3NTZmNCIsInJvbGUiOiJjYXNoaWVyIiwiaWF0IjoxNTc3MDkzODM5LCJleHAiOjE1Nzc3MDIyMzl9.P79tIKtII8qcgBD03CVJoCjWrDdu44ntXP5fIEnX2BM',
+        token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYzU2NzlkMDA4NGZmODgyYzE3NTZmNCIsInJvbGUiOiJjYXNoaWVyIiwiaWF0IjoxNTc3OTU0MDk4LCJleHAiOjE1Nzg1NjI0OTh9.tn7AHjaT7m7TPwcA1GuxyMyeSPkFqHun_jpozT1SS0Q',
       },
     ],
   },
@@ -190,6 +190,66 @@ module.exports = {
       },
       created_at: '2019-11-22T06:11:58.435Z',
       updated_at: '2019-11-22T06:11:58.435Z',
+    },
+    {
+      _id: ObjectId('5e0da773e9c6c218928eee80'),
+      store: ObjectId('5dc2c27c6349d55037421401'),
+      amount: 21,
+      payment_status: 'processing',
+      cart: {
+        products: [
+          {
+            id: ObjectId('5dc55bca49901981f2097193'),
+            name: 'test product',
+            price: 10,
+            taxable: true,
+            tax: 10,
+            quantity: 1,
+          },
+          {
+            id: ObjectId('5dc55bf249901981f2097194'),
+            name: 'Phone Cover',
+            price: 10,
+            taxable: false,
+            tax: 10,
+            quantity: 1,
+          },
+        ],
+      },
+      created_at: Date('2020-01-02T08:18:59.393Z'),
+      updated_at: Date('2020-01-02T08:34:42.439Z'),
+      payee: ObjectId('5d9b0f785084bc1c7ac48b2a'),
+      payment_mode: 'kadima',
+    },
+    {
+      _id: ObjectId('5e0d9bbee658dc752a95756f'),
+      store: ObjectId('5dc2c27c6349d55037421401'),
+      amount: 21,
+      payment_status: 'processing',
+      cart: {
+        products: [
+          {
+            id: ObjectId('5dc55bca49901981f2097193'),
+            name: 'test product',
+            price: 10,
+            taxable: true,
+            tax: 10,
+            quantity: 1,
+          },
+          {
+            id: ObjectId('5dc55bf249901981f2097194'),
+            name: 'Phone Cover',
+            price: 10,
+            taxable: false,
+            tax: 10,
+            quantity: 1,
+          },
+        ],
+      },
+      created_at: Date('2020-01-02T07:29:02.761Z'),
+      updated_at: Date('2020-01-02T08:00:06.403Z'),
+      payee: ObjectId('5d9b0f785084bc1c7ac48b2a'),
+      payment_mode: 'kadima',
     },
     // paid payment status transaction
     {

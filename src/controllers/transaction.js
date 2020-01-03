@@ -15,6 +15,7 @@ const {
 const {Error} = require('../helpers');
 const Mail = require('../modules/mail/lib');
 const {Task} = require('../modules/worker');
+const {getAmountOfTransactionsInProcess} = require('./shared');
 
 const TRANSACTION_EMAIL_RECEIPT = 'transactionEmailReceipt';
 const MAIL_ACCOUNTS_SENDER = 'accounts';
@@ -244,82 +245,87 @@ exports.payTransaction = [
         // if mode of payment is kadima
         // transfer ERC-20 token kadima
         if (mode_of_payment.toLowerCase() === PaymentMode.KADIMA) {
-          // Check that the user has enough balance to pay
+          /* Check that the user has enough balance to pay
+          For this:
+          1. Get the balance of user using blockchain module
+          2. Get all the transaction of the user which are in process
+          Calculate available based on these */
+
+          // balance from blockchain module
           const balance = await res.locals.blockchainWallet.getKadimaBalance(acc.blockchain.wallet.add);
+          // if any transactions in process, calculate available balance
+          const amountTransactionsInProcess = await getAmountOfTransactionsInProcess(res.locals, acc.id);
+          balance.balance -= amountTransactionsInProcess;
+          // check if sufficient available balance is present in user account
           if (balance.balance < transaction.amount) {
+            // if not reject request
             return reject(Error.InvalidRequest(res.__('PAYMENT.INSUFFICIENT_BALANCE')));
           }
-
           const merchantAccount = await res.locals.db.accounts.findOne({
             _id: transaction.store.account_id,
           });
-
+          payee = acc.id;
           transaction.set({
             payment_status: PaymentStatus.PROCESSING,
+            payee,
           });
           await transaction.save();
+          const txn = transaction.toJSON();
+          txn.subTotal = transaction.getSubtotal();
 
-          const speed = 1;
-          paymentTransaction = await res.locals.blockchainWallet.transferKadimaCoin({
-            from: acc.blockchain.wallet.add,
-            to: merchantAccount.blockchain.wallet.add,
-            amount: transaction.amount,
-            from_wallet_private_key: res.locals.accounts.decryptWalletPrivateKey(acc.blockchain.wallet.enc),
-            speed,
-            translate: res.__,
+          // create a task for queue dedicated to transfer kadima
+          const task = new Task('transfer_kadima', {
+            transaction: txn,
+            acc,
+            merchantAccount,
             locale: req.getLocale(),
           });
-          payee = acc.id;
+
+          // submit task to queue
+          await res.locals.worker.submitTask(task);
         } else if (mode_of_payment.toLowerCase() === PaymentMode.CASH) { // if mode of payment is cash
           paymentTransaction = PaymentMode.CASH;
-        }
-
-        const now = new Date();
-        // get the subtotal of a transaction
-        const subTotal = transaction.getSubtotal();
-        // calculate tax for the transaction
-        const tax = _.round(transaction.amount - subTotal, 2);
-        // create a receipt for this transaction
-        const receipt = await res.locals.db.receipts.create({
-          store: {
-            id: transaction.store.id,
-            name: transaction.store.name,
-            address: transaction.store.address.street_address,
-            city: transaction.store.address.city,
-            state: transaction.store.address.state,
-            zipcode: transaction.store.address.zipcode,
-            logo: transaction.store.image,
-          },
-          cart: transaction.cart,
-          total: transaction.amount,
-          sub_total: subTotal,
-          tax,
-          payment_mode: mode_of_payment,
-        });
-
-        await res.locals.db.transactions.update({
-          _id: req.params.transactionId,
-        }, {
-          $set: {
-            payee,
-            payment_status: PaymentStatus.PAID,
-            paid_on: now,
-            updated_at: now,
-            payment_info: paymentTransaction,
+          const now = new Date();
+          // get the subtotal of a transaction
+          const subTotal = transaction.getSubtotal();
+          // calculate tax for the transaction
+          const tax = _.round(transaction.amount - subTotal, 2);
+          // create a receipt for this transaction
+          const receipt = await res.locals.db.receipts.create({
+            store: {
+              id: transaction.store.id,
+              name: transaction.store.name,
+              address: transaction.store.address.street_address,
+              city: transaction.store.address.city,
+              state: transaction.store.address.state,
+              zipcode: transaction.store.address.zipcode,
+              logo: transaction.store.image,
+            },
+            cart: transaction.cart,
+            total: transaction.amount,
+            sub_total: subTotal,
+            tax,
             payment_mode: mode_of_payment,
-            receipt: receipt.id,
-          },
-        });
+          });
+          await res.locals.db.transactions.update({
+            _id: req.params.transactionId,
+          }, {
+            $set: {
+              payee,
+              payment_status: PaymentStatus.PAID,
+              paid_on: now,
+              updated_at: now,
+              payment_info: paymentTransaction,
+              payment_mode: mode_of_payment,
+              receipt: receipt.id,
+            },
+          });
+        }
         // Return updated transaction
         const updatedTransaction = await res.locals.db.transactions.findOne({
           _id: req.params.transactionId,
         }).populate('store');
-        // if mode of payment is kadima
-        // consumer account is present in db
-        // fire an email with transaction details to his account
-        if (mode_of_payment.toLowerCase() === PaymentMode.KADIMA) {
-          await sendEmail(updatedTransaction.id, receipt, acc.email, req.getLocale());
-        }
+
         return resolve(_.pick(updatedTransaction.toJSON(), CollectionKeyMaps.Transaction));
       } catch (e) {
         return reject(e);
@@ -368,26 +374,3 @@ exports.emailReceipt = [
     });
   },
 ];
-
-
-exports.testQueue = async (req, res, next) => {
-  new Promise(async (resolve, reject) => {
-    try {
-      const task = new Task('transfer_kadima', {
-        from: 'from wallet',
-        to: 'to_wallet',
-        amount: 10,
-      });
-      await res.locals.worker.submitTask(task);
-      resolve();
-    } catch (e) {
-      reject(e);
-    }
-  }).asCallback((err, response) => {
-    if (err) {
-      next(err);
-    } else {
-      res.json(response);
-    }
-  });
-};

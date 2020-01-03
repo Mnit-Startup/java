@@ -5,6 +5,7 @@ const config = require('config');
 const {UserAccessControl, InputValidator} = require('../interceptors');
 const {Error} = require('../helpers');
 const {ValidationSchemas} = require('../models');
+const {getAmountOfTransactionsInProcess} = require('./shared');
 
 const BLOCKADE_KADIMA_WALLET_ADDRESS = config.get('blockchain.blockadeKadimaWallet.address');
 const BLOCKADE_KADIMA_WALLET_PRIVATE_KEY = config.get('blockchain.blockadeKadimaWallet.privateKey');
@@ -174,7 +175,9 @@ exports.getBalance = [
         return;
       }
       try {
+        const amountTransactionsInProcess = await getAmountOfTransactionsInProcess(res.locals, acc.id);
         const kadimaBalance = await res.locals.blockchainWallet.getKadimaBalance(acc.blockchain.wallet.add);
+        kadimaBalance.balance -= amountTransactionsInProcess;
         resolve([{
           symbol: kadimaBalance.symbol,
           updated_at: new Date(),

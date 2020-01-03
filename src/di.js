@@ -21,7 +21,7 @@ function registerEntryWithLoader(loader, entry) {
 /**
  * @constructor initializes DI
  * @param entries - modules with config to be registered
- * @param {Function} [done] - optional callback fired when ready
+ * @param {Function} done - callback fired when ready or any error was encountered
  */
 module.exports = (entries, done) => {
   Logger.info('di - initializing...');
@@ -46,14 +46,16 @@ module.exports = (entries, done) => {
   const exModules = {};
   // initialize modules via loader
   async.series(loader, (err, iModules) => {
-    if (err) throw err;
+    if (err) {
+      return done(err);
+    }
     Logger.info('di - modules were registered successfully...');
     // load exModules, iterate over iModules and register them via namespace
     iModules.forEach((mod) => {
       exModules[mod.namespace] = mod.instance;
     });
-    // fire callback if provided
-    if (done) done();
+    // invoke callback with initialized modules
+    return done(null, exModules);
   });
   // NOTE: concluding the procedure here with active reference to exModules
   // exModules will be populated in near-future, and availability is not guaranteed
