@@ -41,7 +41,8 @@
     "INVALID_PRODUCT_ID": "Request could not be resolved as provided product ID is invalid",
     "MISSING_TAX_RATE": "Please specify a store tax rate to continue",
     "INVALID_TAX_RATE": "Please specify a valid store tax rate to continue",
-    "INVALID_PAYMENT_MODE": "Please specify a valid mode of payment for transaction to continue"
+    "INVALID_PAYMENT_MODE": "Please specify a valid mode of payment for transaction to continue",
+    "MISSING_PAYMENT_ID": "Please specify a valid Payment Id to continue for which kadima topup is to be done"
   },
   "PAYMENT": {
     "TRANSACTION_PAID": "The transaction has been paid. Please make sure you are paying for the correct transaction",

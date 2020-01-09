@@ -2,8 +2,11 @@
 const _ = require('lodash');
 const moment = require('moment');
 const Promise = require('bluebird');
+const request = require('async-request');
+const config = require('config');
+
 const {
-  CollectionKeyMaps, ValidationSchemas, PaymentStatus, PaymentMode,
+  CollectionKeyMaps, ValidationSchemas, PaymentStatus, PaymentMode, Currency,
 } = require('../models');
 const {
   UserAccessControl,
@@ -15,8 +18,13 @@ const {
 const {Error} = require('../helpers');
 const Mail = require('../modules/mail/lib');
 const {Task} = require('../modules/worker');
-const {getAmountOfTransactionsInProcess} = require('./shared');
+const {getAmountOfTransactionsInProcess, getKDMAmountOfTopuspInProcess} = require('./shared');
+const {DbUtils} = require('../modules/mongoose');
 
+const BLOCKADE_KADIMA_WALLET_ADDRESS = config.get('blockchain.blockadeKadimaWallet.address');
+const MAIL_RECEIVER = config.get('mail.admin.email');
+
+const INSUFFICIENT_KADIMA = 'insufficientKadimaInSystemWallet';
 const TRANSACTION_EMAIL_RECEIPT = 'transactionEmailReceipt';
 const MAIL_ACCOUNTS_SENDER = 'accounts';
 
@@ -372,5 +380,105 @@ exports.emailReceipt = [
         res.json(response);
       }
     });
+  },
+];
+
+exports.topupConsumerWallet = [
+  // validation schema for request body
+  ValidationSchemas.TopupConsumerWallet,
+  // request body validation schema interception
+  InputValidator(),
+  (req, res, next) => {
+    const {payment_id} = req.body;
+    new Promise(async (resolve, reject) => {
+      try {
+        // verify payment id and get toput details:
+      // 1. consumer account id
+      // 2. amount
+        const response = await request('http://localhost:8080/transaction/hello');
+        if (response.statusCode !== 200) {
+          return reject(response.body);
+        }
+        const body = JSON.parse(response.body);
+        const {account_id} = body;
+        let {currency, amount} = body;
+        let taskQueue;
+
+        if (!DbUtils.checkValidObjectId(account_id) || !_.isFinite(amount) || !_.gt(amount, 0)
+        || _.isNil(Currency[currency.toUpperCase()])) {
+          return reject(Error.InvalidRequest());
+        }
+        // checks on account id, amount, and currency
+        // queue up topup request
+        const acc = await res.locals.db.accounts.findOne({_id: account_id});
+        if (!acc) {
+          return reject(Error.NotFound());
+        }
+        currency = currency.toLowerCase();
+        amount = _.round(amount, 2);
+        if (currency === Currency.KDM) {
+          const kadimaBalance = await res.locals.blockchainWallet.getKadimaBalance(BLOCKADE_KADIMA_WALLET_ADDRESS);
+          let kadimaInSource = kadimaBalance.balance;
+          // get pending kadima topups
+          const kadimaTopupsInProcessAmount = await getKDMAmountOfTopuspInProcess(res.locals);
+          kadimaInSource -= kadimaTopupsInProcessAmount;
+          if (kadimaInSource < amount) {
+            // notify the admin
+            const emailData = {
+              kadimaInSource,
+              consumerWalletAddress: acc.blockchain.wallet.add,
+              kadimaRequested: amount,
+            };
+            await res.locals.mail.sendEmail({
+              sender: MAIL_ACCOUNTS_SENDER,
+              template: INSUFFICIENT_KADIMA,
+              recipient: {
+                email: MAIL_RECEIVER,
+              },
+              data: emailData,
+              locale: req.getLocale(),
+            });
+            return reject(Error.InvalidRequest(res.__('PAYMENT.INSUFFICIENT_KADIMA_IN_SYSTEM_WALLET')));
+          }
+          taskQueue = 'transfer_kadima';
+        }
+        const topup = await res.locals.db.topups.create({
+          acc: acc.id,
+          payment_id,
+          amount,
+          currency,
+          topup_status: PaymentStatus.PROCESSING,
+        });
+        // create a task
+        const task = new Task(taskQueue, {
+          topup,
+          acc,
+          locale: req.getLocale(),
+        });
+
+        // submit task to queue
+        await res.locals.worker.submitTask(task);
+        return resolve(_.pick(topup.toJSON(), CollectionKeyMaps.Topup));
+      } catch (e) {
+        return reject(e);
+      }
+    }).asCallback((err, response) => {
+      if (err) {
+        next(err);
+      } else {
+        res.send(response);
+      }
+    });
+  },
+];
+
+exports.hello = [
+  (req, res) => {
+    const details = {
+      account_id: '5d9b0f785084bc1c7ac48b2a',
+      amount: 10,
+      currency: 'KDM',
+    };
+    res.send(details);
   },
 ];

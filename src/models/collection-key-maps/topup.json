@@ -1,0 +1,10 @@
+[
+  "acc",
+  "payment_id",
+  "amount",
+  "currency",
+  "topup_status",
+  "topup_info",
+  "created_at",
+  "updated_at"
+]

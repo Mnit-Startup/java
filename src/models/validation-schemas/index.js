@@ -9,6 +9,7 @@ const Employee = require('./employee');
 const EmployeeLogin = require('./employee-login');
 const PayTransaction = require('./pay-transaction');
 const EmailTransactionReceipt = require('./email-transaction-reciept');
+const TopupConsumerWallet = require('./topup-consumer-wallet');
 
 module.exports = {
   Account,
@@ -22,4 +23,5 @@ module.exports = {
   EmployeeLogin,
   PayTransaction,
   EmailTransactionReceipt,
+  TopupConsumerWallet,
 };
