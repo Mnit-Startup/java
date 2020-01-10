@@ -2,7 +2,6 @@
 const _ = require('lodash');
 const moment = require('moment');
 const Promise = require('bluebird');
-
 const {
   CollectionKeyMaps, ValidationSchemas, PaymentStatus, PaymentMode,
 } = require('../models');
@@ -17,7 +16,6 @@ const {Error} = require('../helpers');
 const Mail = require('../modules/mail/lib');
 const {Task} = require('../modules/worker');
 const {getAmountOfTransactionsInProcess} = require('./shared');
-
 
 const TRANSACTION_EMAIL_RECEIPT = 'transactionEmailReceipt';
 const MAIL_ACCOUNTS_SENDER = 'accounts';
