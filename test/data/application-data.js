@@ -19,7 +19,7 @@ module.exports = {
       role: 'merchant',
       created_at: Date('2019-08-05T05:27:52.916Z'),
       updated_at: Date('2019-08-05T05:27:52.916Z'),
-      token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkNDdiZTU4NTUxN2RiMDczYzEwMzBhNSIsInJvbGUiOiJtZXJjaGFudCIsImlhdCI6MTU3Nzk1MDEwOCwiZXhwIjoxNTc4NTU4NTA4fQ.mUZt9AnAFTFgp4Tk6YLtIpYm-3oCO03jdEC58uIedro',
+      token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkNDdiZTU4NTUxN2RiMDczYzEwMzBhNSIsInJvbGUiOiJtZXJjaGFudCIsImlhdCI6MTU3ODYzNzU2OSwiZXhwIjoxNTc5MjQ1OTY5fQ.7owzrSlEjS3vD2BJO2t06tyw_noasqFKTByNQBrfCVY',
     },
   ],
   consumers: [
@@ -40,7 +40,7 @@ module.exports = {
       role: 'consumer',
       created_at: Date('2019-10-07T10:12:08.064Z'),
       updated_at: Date('2019-10-07T10:12:08.064Z'),
-      token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkOWIwZjc4NTA4NGJjMWM3YWM0OGIyYSIsInJvbGUiOiJjb25zdW1lciIsImlhdCI6MTU3Nzk0OTQ2MiwiZXhwIjoxNTc4NTU3ODYyfQ.SBV1n1f8oUqRE7fi_5ETS6t0S8VriVvPjtvmD3DL3aM',
+      token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkOWIwZjc4NTA4NGJjMWM3YWM0OGIyYSIsInJvbGUiOiJjb25zdW1lciIsImlhdCI6MTU3ODYzNzUzOSwiZXhwIjoxNTc5MjQ1OTM5fQ.W3BlclxUuDLrLLRi7tjLNKw65jp1GgeJkCVhNg58vh8',
     },
   ],
   stores: [
@@ -80,7 +80,7 @@ module.exports = {
         active: true,
         created_at: Date('2019-11-08T13:03:25.798Z'),
         updated_at: Date('2019-11-08T13:03:25.798Z'),
-        token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYzU2NzlkMDA4NGZmODgyYzE3NTZmNCIsInJvbGUiOiJjYXNoaWVyIiwiaWF0IjoxNTc3OTU0MDk4LCJleHAiOjE1Nzg1NjI0OTh9.tn7AHjaT7m7TPwcA1GuxyMyeSPkFqHun_jpozT1SS0Q',
+        token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYzU2NzlkMDA4NGZmODgyYzE3NTZmNCIsInJvbGUiOiJjYXNoaWVyIiwiaWF0IjoxNTc4NjM3NDU1LCJleHAiOjE1NzkyNDU4NTV9.iUPuu5fk__tIgkaUhSgBO01bO1cX25OoA7oj7w_IJUg',
       },
     ],
   },

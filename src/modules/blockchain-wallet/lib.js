@@ -35,7 +35,7 @@ const web3 = new Web3(WalletUtils.getProviderForWeb3(INFURA_ENDPOINT));
 
 function getKadimaContractInstance() {
   const kadimaContractJSON = JSON.parse(fs.readFileSync(path.join('src', 'modules', 'blockchain-wallet', 'abi', 'Kadima.json')).toString().trim());
-  return web3.eth.Contract(kadimaContractJSON.abi, KADIMA_CONTRACT_ADDRESS);
+  return new web3.eth.Contract(kadimaContractJSON.abi, KADIMA_CONTRACT_ADDRESS);
 }
 
 /**

@@ -67,6 +67,9 @@
     },
     "SENDGRID_API_KEY": {
       "required": true
+    },
+    "MONGODB_URI": {
+      "required": true
     }
   },
   "stack": "container"
