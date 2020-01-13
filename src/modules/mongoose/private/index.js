@@ -12,6 +12,7 @@ const models = require('./models');
 // load values from config
 const MONGO_DB_URI = config.get('mongoDb.uri');
 const MONGO_DB_DEBUG = config.get('mongoDb.debug') === true;
+const MONGO_DB_RECONNECT_TRIES = config.get('mongoDb.reconnectTries');
 
 exports.init = (done) => {
   // skip installation if not configured
@@ -49,8 +50,9 @@ exports.init = (done) => {
     autoIndex: true,
     // reconnect if connection is lost
     autoReconnect: true,
-    // never stop trying to reconnect
-    reconnectTries: Number.MAX_VALUE,
+    // make no of re-tries small finite value, so error can float up
+    // before main process time out
+    reconnectTries: MONGO_DB_RECONNECT_TRIES,
     // reconnect interval in ms
     reconnectInterval: 500,
     // if not connected, return error immediately rather than waiting for reconnect

@@ -23,7 +23,8 @@
     "program": "PAPERTRAIL_PROGRAM"
   },
   "mongoDb": {
-    "uri": "MONGODB_URI"
+    "uri": "MONGODB_URI",
+    "reconnectTries": "MONGODB_RECONNECT_TRIES"
   },
   "infura": {
     "projectId": "INFURA_PROJECT_ID",

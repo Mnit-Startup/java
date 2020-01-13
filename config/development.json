@@ -13,7 +13,8 @@
   },
   "mongoDb": {
     "debug": true,
-    "uri": "mongodb://localhost:27017/blockade-development"
+    "uri": "mongodb://localhost:27017/blockade-development",
+    "reconnectTries": 5
   },
   "infura": {
     "endpoint": "https://ropsten.infura.io/v3/{projectId}",

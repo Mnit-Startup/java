@@ -17,7 +17,8 @@
   },
   "mongoDb": {
     "debug": false,
-    "uri": "mongodb://127.0.0.1:27018/blockade-testing"
+    "uri": "mongodb://127.0.0.1:27018/blockade-testing",
+    "reconnectTries": 5
   },
   "accounts": {
     "jwt": {
