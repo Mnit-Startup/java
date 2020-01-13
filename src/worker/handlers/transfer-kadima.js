@@ -17,7 +17,7 @@ module.exports = async (ctx, msg) => {
     transaction, acc, merchantAccount, locale,
     topup,
   } = params;
-  if (!_.isNil(transaction)) {
+  if (!_.isNil(transaction)) { // if store transaction
     new Promise(async (resolve) => {
       Logger.info('worker.transfer_kadima - starting routine for transactionId - %s', transaction.id);
       const speed = 1;
@@ -95,7 +95,7 @@ module.exports = async (ctx, msg) => {
       ctx.captureException(err);
       // can inform someone about the failure
     });
-  } else {
+  } else { // if consumer wallet topup
     new Promise(async (resolve) => {
       Logger.info('worker.transfer_kadima - start routine for topupId - %s', topup.id);
       const speed = 1;
