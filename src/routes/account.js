@@ -14,6 +14,8 @@ const {AccessControl} = require('../interceptors');
 
 const router = express.Router({});
 
+router.post('/load-kadima', accountController.topupConsumerWallet);
+
 router.post('/load-kadima-balance', accountController.loadKadimaInConsumerWallet);
 
 router.post('/transfer-kadima-conusmer-to-merchant', accountController.transferKadimaConsumerToMerchant);

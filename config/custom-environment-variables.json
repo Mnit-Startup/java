@@ -56,5 +56,8 @@
   },
   "rabbitMQ": {
     "url": "CLOUDAMQP_URL"
+  },
+  "kadepay": {
+    "uri": "KADEPAY_URI"
   }
 }

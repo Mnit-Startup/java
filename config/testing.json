@@ -62,5 +62,8 @@
   },
   "rabbitMQ": {
     "url": "amqp://localhost"
+  },
+  "kadepay": {
+    "uri": "http://35.224.83.173/api/v1"
   }
 }
